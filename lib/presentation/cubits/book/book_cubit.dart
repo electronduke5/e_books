@@ -15,10 +15,14 @@ class BookCubit extends Cubit<BookState> {
     try {
       final List<Book> books = await repository.getAllBooks();
       emit(state.copyWith(booksStatus: LoadedStatus(item: books)));
+      print('books: $books');
+      print('---there2');
       return books;
     } catch (exception) {
       emit(
           state.copyWith(booksStatus: FailedStatus(state.booksStatus.message)));
+      print(state.booksStatus.message);
+      print(exception.toString());
       return null;
     }
   }

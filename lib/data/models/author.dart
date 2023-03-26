@@ -13,7 +13,7 @@ class Author with _$Author {
     required String name,
     required String patronymic,
     required String information,
-    required List<Book> books
+    List<Book>? books
   }) = _Author;
 
   factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);

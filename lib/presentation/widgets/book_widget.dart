@@ -40,8 +40,12 @@ class BookWidget extends StatelessWidget {
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         () {
-                          for (Author author in book.authors) {
-                            return Text(author.getFullName(), style: Theme.of(context).textTheme.bodySmall);
+                          if (book.authors == []) {
+                            return Text('Авторов нет');
+                          }
+                          for (Author author in book.authors!) {
+                            return Text(author.getFullName(),
+                                style: Theme.of(context).textTheme.bodySmall);
                           }
                           return Text('asd');
                         }(),
@@ -83,12 +87,16 @@ class BookWidget extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),
                                 ),
-                                    () {
-                                  for (Author author in book.authors) {
-                                    return Text(author.getFullName(), style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontSize: 16));
+                                () {
+                                  if (book.authors == []) {
+                                    return Text('Авторов нет');
+                                  }
+                                  for (Author author in book.authors!) {
+                                    return Text(author.getFullName(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(fontSize: 16));
                                   }
                                   return Text('asd');
                                 }(),

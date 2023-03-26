@@ -14,7 +14,7 @@ class Book with _$Book {
     String? image,
     String? file,
     double? rating,
-    required List<Author> authors,
+    List<Author>? authors,
   }) = _Book;
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);

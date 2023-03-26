@@ -13,8 +13,8 @@ _$_Book _$$_BookFromJson(Map<String, dynamic> json) => _$_Book(
       image: json['image'] as String?,
       file: json['file'] as String?,
       rating: (json['rating'] as num?)?.toDouble(),
-      authors: (json['authors'] as List<dynamic>)
-          .map((e) => Author.fromJson(e as Map<String, dynamic>))
+      authors: (json['authors'] as List<dynamic>?)
+          ?.map((e) => Author.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

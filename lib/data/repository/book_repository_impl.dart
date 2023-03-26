@@ -10,6 +10,7 @@ class BookRepositoryImpl with ApiService<Book> implements BookRepository {
 
   @override
   Future<List<Book>> getAllBooks() {
+    print('---there');
     return getAll(fromJson: (Map<String, dynamic> json) => Book.fromJson(json));
   }
 }

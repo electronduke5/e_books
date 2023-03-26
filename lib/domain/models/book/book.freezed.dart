@@ -26,7 +26,7 @@ mixin _$Book {
   String? get image => throw _privateConstructorUsedError;
   String? get file => throw _privateConstructorUsedError;
   double? get rating => throw _privateConstructorUsedError;
-  List<Author> get authors => throw _privateConstructorUsedError;
+  List<Author>? get authors => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +45,7 @@ abstract class $BookCopyWith<$Res> {
       String? image,
       String? file,
       double? rating,
-      List<Author> authors});
+      List<Author>? authors});
 }
 
 /// @nodoc
@@ -67,7 +67,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? image = freezed,
     Object? file = freezed,
     Object? rating = freezed,
-    Object? authors = null,
+    Object? authors = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -94,10 +94,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
-      authors: null == authors
+      authors: freezed == authors
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
-              as List<Author>,
+              as List<Author>?,
     ) as $Val);
   }
 }
@@ -115,7 +115,7 @@ abstract class _$$_BookCopyWith<$Res> implements $BookCopyWith<$Res> {
       String? image,
       String? file,
       double? rating,
-      List<Author> authors});
+      List<Author>? authors});
 }
 
 /// @nodoc
@@ -133,7 +133,7 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
     Object? image = freezed,
     Object? file = freezed,
     Object? rating = freezed,
-    Object? authors = null,
+    Object? authors = freezed,
   }) {
     return _then(_$_Book(
       id: null == id
@@ -160,10 +160,10 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
-      authors: null == authors
+      authors: freezed == authors
           ? _value._authors
           : authors // ignore: cast_nullable_to_non_nullable
-              as List<Author>,
+              as List<Author>?,
     ));
   }
 }
@@ -178,7 +178,7 @@ class _$_Book implements _Book {
       this.image,
       this.file,
       this.rating,
-      required final List<Author> authors})
+      final List<Author>? authors})
       : _authors = authors;
 
   factory _$_Book.fromJson(Map<String, dynamic> json) => _$$_BookFromJson(json);
@@ -195,12 +195,14 @@ class _$_Book implements _Book {
   final String? file;
   @override
   final double? rating;
-  final List<Author> _authors;
+  final List<Author>? _authors;
   @override
-  List<Author> get authors {
+  List<Author>? get authors {
+    final value = _authors;
+    if (value == null) return null;
     if (_authors is EqualUnmodifiableListView) return _authors;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_authors);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -250,7 +252,7 @@ abstract class _Book implements Book {
       final String? image,
       final String? file,
       final double? rating,
-      required final List<Author> authors}) = _$_Book;
+      final List<Author>? authors}) = _$_Book;
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$_Book.fromJson;
 
@@ -267,7 +269,7 @@ abstract class _Book implements Book {
   @override
   double? get rating;
   @override
-  List<Author> get authors;
+  List<Author>? get authors;
   @override
   @JsonKey(ignore: true)
   _$$_BookCopyWith<_$_Book> get copyWith => throw _privateConstructorUsedError;

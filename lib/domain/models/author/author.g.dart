@@ -12,8 +12,8 @@ _$_Author _$$_AuthorFromJson(Map<String, dynamic> json) => _$_Author(
       name: json['name'] as String,
       patronymic: json['patronymic'] as String,
       information: json['information'] as String,
-      books: (json['books'] as List<dynamic>)
-          .map((e) => Book.fromJson(e as Map<String, dynamic>))
+      books: (json['books'] as List<dynamic>?)
+          ?.map((e) => Book.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

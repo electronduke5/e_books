@@ -24,10 +24,11 @@ mixin ApiService<T extends Object> {
     );
 
     final response = await dio.get('${ApiConstUrl.baseUrl}$apiRoute');
+    print(response);
     if (response.statusCode != HttpStatus.ok) {
       return [];
     }
-    final jsonList = response.data as List<dynamic>;
+    final jsonList = response.data['data'] as List<dynamic>;
     return jsonList.map((e) => fromJson(e)).toList();
   }
 

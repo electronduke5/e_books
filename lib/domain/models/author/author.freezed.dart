@@ -25,7 +25,7 @@ mixin _$Author {
   String get name => throw _privateConstructorUsedError;
   String get patronymic => throw _privateConstructorUsedError;
   String get information => throw _privateConstructorUsedError;
-  List<Book> get books => throw _privateConstructorUsedError;
+  List<Book>? get books => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +43,7 @@ abstract class $AuthorCopyWith<$Res> {
       String name,
       String patronymic,
       String information,
-      List<Book> books});
+      List<Book>? books});
 }
 
 /// @nodoc
@@ -64,7 +64,7 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
     Object? name = null,
     Object? patronymic = null,
     Object? information = null,
-    Object? books = null,
+    Object? books = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -87,10 +87,10 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
           ? _value.information
           : information // ignore: cast_nullable_to_non_nullable
               as String,
-      books: null == books
+      books: freezed == books
           ? _value.books
           : books // ignore: cast_nullable_to_non_nullable
-              as List<Book>,
+              as List<Book>?,
     ) as $Val);
   }
 }
@@ -107,7 +107,7 @@ abstract class _$$_AuthorCopyWith<$Res> implements $AuthorCopyWith<$Res> {
       String name,
       String patronymic,
       String information,
-      List<Book> books});
+      List<Book>? books});
 }
 
 /// @nodoc
@@ -125,7 +125,7 @@ class __$$_AuthorCopyWithImpl<$Res>
     Object? name = null,
     Object? patronymic = null,
     Object? information = null,
-    Object? books = null,
+    Object? books = freezed,
   }) {
     return _then(_$_Author(
       id: null == id
@@ -148,10 +148,10 @@ class __$$_AuthorCopyWithImpl<$Res>
           ? _value.information
           : information // ignore: cast_nullable_to_non_nullable
               as String,
-      books: null == books
+      books: freezed == books
           ? _value._books
           : books // ignore: cast_nullable_to_non_nullable
-              as List<Book>,
+              as List<Book>?,
     ));
   }
 }
@@ -165,7 +165,7 @@ class _$_Author implements _Author {
       required this.name,
       required this.patronymic,
       required this.information,
-      required final List<Book> books})
+      final List<Book>? books})
       : _books = books;
 
   factory _$_Author.fromJson(Map<String, dynamic> json) =>
@@ -181,12 +181,14 @@ class _$_Author implements _Author {
   final String patronymic;
   @override
   final String information;
-  final List<Book> _books;
+  final List<Book>? _books;
   @override
-  List<Book> get books {
+  List<Book>? get books {
+    final value = _books;
+    if (value == null) return null;
     if (_books is EqualUnmodifiableListView) return _books;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_books);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -228,21 +230,14 @@ class _$_Author implements _Author {
   }
 
   @override
-  String getFullName() {
-    // TODO: implement getFullName
-    throw UnimplementedError();
-  }
-
+  String getFullName() => '$surname $name $patronymic';
+  @override
+  String getSurnameName() => '$surname $name';
   @override
   String getInitials() {
-    // TODO: implement getInitials
-    throw UnimplementedError();
-  }
-
-  @override
-  String getSurnameName() {
-    // TODO: implement getSurnameName
-    throw UnimplementedError();
+    return patronymic == null
+        ? '${name[0]}. $surname'
+        : '${name[0]}. ${patronymic[0]}. $surname';
   }
 }
 
@@ -253,7 +248,7 @@ abstract class _Author implements Author {
       required final String name,
       required final String patronymic,
       required final String information,
-      required final List<Book> books}) = _$_Author;
+      final List<Book>? books}) = _$_Author;
 
   factory _Author.fromJson(Map<String, dynamic> json) = _$_Author.fromJson;
 
@@ -268,7 +263,7 @@ abstract class _Author implements Author {
   @override
   String get information;
   @override
-  List<Book> get books;
+  List<Book>? get books;
   @override
   @JsonKey(ignore: true)
   _$$_AuthorCopyWith<_$_Author> get copyWith =>
