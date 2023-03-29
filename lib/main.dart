@@ -6,6 +6,9 @@ import 'package:e_books/presentation/cubits/profile/profile_cubit.dart';
 import 'package:e_books/presentation/cubits/theme/theme_cubit.dart';
 import 'package:e_books/presentation/pages/auth_pages/code_confirm_page.dart';
 import 'package:e_books/presentation/pages/auth_pages/sign_up_next.dart';
+import 'package:e_books/presentation/pages/book_info_page.dart';
+import 'package:e_books/presentation/pages/loading_page.dart';
+import 'package:e_books/presentation/pages/read_book_page.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,11 +63,7 @@ class _EBooksAppState extends State<EBooksApp> {
       future: widget._preferencesRepository.getUser(),
       builder: (context, user) {
         if (user.connectionState != ConnectionState.done) {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return const LoadingPage();
         }
         return BlocProvider(
           create: (context) => ThemeCubit(prefs),
@@ -124,6 +123,8 @@ class _EBooksAppState extends State<EBooksApp> {
                       create: (context) => AuthCubit(),
                       child: CodeConfirmPage(),
                     ),
+                '/book-info': (context) => BookInfoPage(),
+                '/read-book': (context) => ReadBookPage(),
                 '/main': (context) => MultiBlocProvider(
                       providers: [
                         BlocProvider<ProfileCubit>(

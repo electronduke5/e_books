@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../data/models/author.dart';
 import '../../data/models/book.dart';
@@ -14,11 +13,11 @@ class BookWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5),
       child: InkWell(
         onTap: () async {
           //context.read<ReviewCubit>().loadReviews(filter: 'book', value: book.id).then((value) {
-          Navigator.of(context).pushNamed('/book-review', arguments: book);
+          Navigator.of(context).pushNamed('/book-info', arguments: book);
 
           //});
         },
@@ -29,32 +28,6 @@ class BookWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          book.title,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        () {
-                          if (book.authors == []) {
-                            return Text('Авторов нет');
-                          }
-                          for (Author author in book.authors!) {
-                            return Text(author.getFullName(),
-                                style: Theme.of(context).textTheme.bodySmall);
-                          }
-                          return Text('asd');
-                        }(),
-                        // Text(book.authors.getInitials(),
-                        //     style: Theme.of(context).textTheme.bodySmall),
-                      ],
-                    ),
-                  ],
-                ),
                 const SizedBox(height: 15),
                 () {
                   if (book.image == null) {
@@ -75,8 +48,8 @@ class BookWidget extends StatelessWidget {
                                         .nextInt(Colors.primaries.length)],
                                   ],
                                 )),
-                            height: 350,
-                            width: 250,
+                            height: 230,
+                            width: 150,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -98,7 +71,7 @@ class BookWidget extends StatelessWidget {
                                             .bodySmall!
                                             .copyWith(fontSize: 16));
                                   }
-                                  return Text('asd');
+                                  return Text('');
                                 }(),
                               ],
                             ),
@@ -109,45 +82,59 @@ class BookWidget extends StatelessWidget {
                   }
                   return Align(
                     alignment: Alignment.center,
-                    child: Image.network(book.image!),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                        child: Image.network(book.image!)),
                   );
                 }(),
-                const SizedBox(height: 15),
-                // Text(
-                //   book. ?? "Описание пустое",
-                //   style: Theme.of(context).textTheme.bodyLarge,
-                // ),
-                // const SizedBox(height: 10),
-                //const Divider(indent: 10, endIndent: 10, thickness: 0.1),
-                () {
-                  if (book.rating != 0.0) {
-                    return RatingBarIndicator(
-                      itemBuilder: (context, index) {
-                        return Icon(Icons.star,
-                            color: Theme.of(context).colorScheme.secondary);
-                      },
-                      itemSize: MediaQuery.of(context).size.width / 11,
-                      itemCount: 10,
-                      rating: book.rating ?? 0.0,
-                    );
-                  }
-                  return const SizedBox();
-                }(),
+                Wrap(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          book.title,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                            () {
+                          if (book.authors == []) {
+                            return Text('Авторов нет');
+                          }
+                          for (Author author in book.authors!) {
+                            return Text(author.getInitials(),
+                                style: Theme.of(context).textTheme.bodySmall);
+                          }
+                          return const SizedBox();
+                        }(),
+                        // Text(book.authors.getInitials(),
+                        //     style: Theme.of(context).textTheme.bodySmall),
+                      ],
+                    ),
+                  ],
+                ),
+                // () {
+                //   if (book.rating != 0.0) {
+                //     return RatingBarIndicator(
+                //       itemBuilder: (context, index) {
+                //         return Icon(Icons.star,
+                //             color: Theme.of(context).colorScheme.secondary);
+                //       },
+                //       itemSize: MediaQuery.of(context).size.width / 11,
+                //       itemCount: 10,
+                //       rating: book.rating ?? 0.0,
+                //     );
+                //   }
+                //   return const SizedBox();
+                // }(),
 
                 const SizedBox(height: 10),
                 Row(
                   children: [
                     const Icon(Icons.star_outline),
                     Text(book.rating != 0.0
-                        ? 'Оценка книги: ${book.rating}/10'
+                        ? '${book.rating}/10'
                         : 'Отзывов ещё нет'),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    const Icon(Icons.library_books_outlined),
-                    Text('Год выпуска: ${book.yearOfIssue}'),
                   ],
                 ),
               ],

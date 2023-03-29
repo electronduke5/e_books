@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../data/models/book.dart';
 import '../cubits/book/book_cubit.dart';
@@ -83,16 +84,16 @@ class BooksPage extends StatelessWidget {
             return Column(
               children: [
                 Expanded(
-                  child: ListView.builder(
-                    clipBehavior: Clip.antiAlias,
-                    physics: const BouncingScrollPhysics(),
+                  child: MasonryGridView.count(
+                    crossAxisCount: 2,
                     itemCount: allBooks.length,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (BuildContext context, int index) {
+                      print('---allBooks.length: ${allBooks.length}');
                       return BookWidget(book: allBooks[index]);
                     },
                   ),
                 ),
-                const SizedBox(height: 65),
+                const SizedBox(height: 60),
               ],
             );
           default:

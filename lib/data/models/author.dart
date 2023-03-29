@@ -25,6 +25,6 @@ class Author with _$Author {
   String getInitials() {
     return patronymic == null
         ? '${name[0]}. $surname'
-        : '${name[0]}. ${patronymic[0]}. $surname';
+        : '${name[0]}.${patronymic[0]}. $surname';
   }
 }

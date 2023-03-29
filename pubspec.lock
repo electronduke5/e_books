@@ -270,6 +270,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1"
+  flutter_staggered_grid_view:
+    dependency: "direct main"
+    description:
+      name: flutter_staggered_grid_view
+      sha256: "1312314293acceb65b92754298754801b0e1f26a1845833b740b30415bbbcf07"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.2"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -481,7 +489,7 @@ packages:
     source: hosted
     version: "1.0.1"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: c7edf82217d4b2952b2129a61d3ad60f1075b9299e629e149a8d2e39c2e6aad4
@@ -797,6 +805,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  vocsy_epub_viewer:
+    dependency: "direct main"
+    description:
+      name: vocsy_epub_viewer
+      sha256: "30aab4a5be22e8c98f22fed3345f6989caaca861178c38cab2a8b8cd66ad53de"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   watcher:
     dependency: transitive
     description:
