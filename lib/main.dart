@@ -72,7 +72,7 @@ class _EBooksAppState extends State<EBooksApp> {
               title: 'Flutter Demo',
               debugShowCheckedModeBanner: false,
               theme: FlexThemeData.light(
-                scheme: FlexScheme.red,
+                scheme: FlexScheme.redWine,
                 surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
                 blendLevel: 20,
                 subThemesData: const FlexSubThemesData(
@@ -88,10 +88,10 @@ class _EBooksAppState extends State<EBooksApp> {
                 visualDensity: FlexColorScheme.comfortablePlatformDensity,
                 useMaterial3: true,
                 swapLegacyOnMaterial3: true,
-                fontFamily: GoogleFonts.inter().fontFamily,
+                fontFamily: GoogleFonts.literata().fontFamily,
               ),
               darkTheme: FlexThemeData.dark(
-                scheme: FlexScheme.blueWhale,
+                scheme: FlexScheme.redWine,
                 surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
                 blendLevel: 20,
                 subThemesData: const FlexSubThemesData(
@@ -103,7 +103,7 @@ class _EBooksAppState extends State<EBooksApp> {
                 visualDensity: FlexColorScheme.comfortablePlatformDensity,
                 useMaterial3: true,
                 swapLegacyOnMaterial3: true,
-                fontFamily: GoogleFonts.inter().fontFamily,
+                fontFamily: GoogleFonts.literata().fontFamily,
               ),
               themeMode: context.read<ThemeCubit>().getCurrentTheme,
               routes: {

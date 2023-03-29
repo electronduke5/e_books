@@ -353,14 +353,12 @@ class _$_User implements _User {
 
   @override
   String getFullName() {
-    // TODO: implement getFullName
-    throw UnimplementedError();
+    return '$surname $name ${patronymic?? ''}';
   }
 
   @override
   String getInitials() {
-    // TODO: implement getInitials
-    throw UnimplementedError();
+    return '${surname[0].toUpperCase()} ${name[0].toUpperCase()}';
   }
 }
 
