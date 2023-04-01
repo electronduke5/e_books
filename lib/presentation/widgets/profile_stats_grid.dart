@@ -19,18 +19,21 @@ class ProfileStatsGrid extends StatelessWidget {
       crossAxisSpacing: 5,
       children: [
         profileStatTile(
+          onTap: () => Navigator.of(context).pushNamed('/bookmarks'),
           title: 'Закладки',
           value: user.bookmarks?.length,
           crossAxisCellCount: 2,
           mainAxisCellCount: 1,
         ),
         profileStatTile(
+          onTap: (){},
           title: 'Ревью',
           value: user.reviews?.length,
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
         ),
         profileStatTile(
+          onTap: (){},
           title: 'Полки',
           value: user.shelves?.length,
           crossAxisCellCount: 1,
@@ -38,6 +41,7 @@ class ProfileStatsGrid extends StatelessWidget {
         ),
 
         profileStatTile(
+          onTap: (){},
           title: 'Что-то ещё',
           value: 12,
           crossAxisCellCount: 2,
@@ -53,17 +57,21 @@ class ProfileStatsGrid extends StatelessWidget {
     required var value,
     required int crossAxisCellCount,
     required int mainAxisCellCount,
+    required void Function() onTap,
   }) {
     return StaggeredGridTile.count(
       crossAxisCellCount: crossAxisCellCount,
       mainAxisCellCount: mainAxisCellCount,
       child: Card(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(title, style: const TextStyle(fontWeight: FontWeight.bold),),
-            Text(value.toString()),
-          ],
+        child: InkWell(
+          onTap: onTap,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(title, style: const TextStyle(fontWeight: FontWeight.bold),),
+              Text(value.toString()),
+            ],
+          ),
         ),
       ),
     );

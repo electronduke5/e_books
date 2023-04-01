@@ -8,7 +8,6 @@ import '../models/book.dart';
 class BookRepositoryImpl with ApiService<Book> implements BookRepository {
   @override
   Future<List<Book>> getAllBooks() {
-    print('---there');
     apiRoute = ApiConstUrl.bookUrl;
     return getAll(fromJson: (Map<String, dynamic> json) => Book.fromJson(json));
   }
@@ -29,4 +28,13 @@ class BookRepositoryImpl with ApiService<Book> implements BookRepository {
 
   @override
   String apiRoute = ApiConstUrl.bookUrl;
+
+  @override
+  Future<List<Book>> getUserBookmarks() {
+    apiRoute = ApiConstUrl.bookmarkUrl;
+    return getAll(
+      fromJson: (Map<String, dynamic> json) => Book.fromJson(json),
+      params: {'user': AppModule.getProfileHolder().user.id},
+    );
+  }
 }
