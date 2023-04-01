@@ -14,12 +14,12 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        await context.read<ProfileCubit>().loadProfile();
-      },
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          await context.read<ProfileCubit>().loadProfile();
+        },
         child: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {
             switch (state.status.runtimeType) {

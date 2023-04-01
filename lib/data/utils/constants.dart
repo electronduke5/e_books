@@ -1,7 +1,7 @@
 class ApiConstUrl {
   static int? id;
 
-  static const String baseUrl = 'https://d11f-109-252-220-158.eu.ngrok.io/api/';
+  static const String baseUrl = 'https://222b-109-252-220-158.eu.ngrok.io/api/';
   static const String loginUrl = 'login';
   static const String registerUrl = 'register';
   static const String logoutUrl = 'logout';
@@ -9,6 +9,7 @@ class ApiConstUrl {
   static const String sendMessageUrl = 'sendMessage';
   static const String userUrl = 'users';
   static const String bookUrl = 'books';
+  static const String bookmarkUrl = 'bookmarks';
   static const String reviewUrl = 'reviews';
   static const String authorUrl = 'authors';
 }

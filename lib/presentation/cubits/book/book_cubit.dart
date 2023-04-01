@@ -19,8 +19,24 @@ class BookCubit extends Cubit<BookState> {
       print('---there2');
       return books;
     } catch (exception) {
-      emit(
-          state.copyWith(booksStatus: FailedStatus(state.booksStatus.message)));
+      emit(state.copyWith(booksStatus: FailedStatus(state.booksStatus.message)));
+      print(state.booksStatus.message);
+      print(exception.toString());
+      return null;
+    }
+  }
+
+  Future<bool?> addBookmark(int bookId) async {
+    final repository = AppModule.getBookRepository();
+    emit(state.copyWith(bookmarkStatus: LoadingStatus()));
+    try {
+      final Book? book = await repository.addBookmark(bookId: bookId);
+      emit(state.copyWith(bookmarkStatus: LoadedStatus(item: book)));
+      print('book: $book');
+      print('---there2');
+      return book == null ? false : true;
+    } catch (exception) {
+      emit(state.copyWith(bookmarkStatus: FailedStatus(state.booksStatus.message)));
       print(state.booksStatus.message);
       print(exception.toString());
       return null;

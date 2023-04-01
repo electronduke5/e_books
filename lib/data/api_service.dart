@@ -105,7 +105,7 @@ mixin ApiService<T extends Object> {
         print(response.statusCode);
         print(response.statusMessage);
         print(response.data);
-        print(response.data['message']);
+        //print(response.data['message']);
         //throw Exception(response.data['message']).getMessage;
         throw Exception(response.data['message']);
       }

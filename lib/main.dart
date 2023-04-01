@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:e_books/data/models/book.dart';
 import 'package:e_books/presentation/cubits/auth/auth_cubit.dart';
 import 'package:e_books/presentation/cubits/book/book_cubit.dart';
 import 'package:e_books/presentation/cubits/profile/profile_cubit.dart';
@@ -123,7 +124,13 @@ class _EBooksAppState extends State<EBooksApp> {
                       create: (context) => AuthCubit(),
                       child: CodeConfirmPage(),
                     ),
-                '/book-info': (context) => BookInfoPage(),
+                '/book-info': (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider<BookCubit>(
+                        create: (context) => BookCubit()),
+                  ],
+                  child: BookInfoPage(),
+                ),
                 '/read-book': (context) => ReadBookPage(),
                 '/main': (context) => MultiBlocProvider(
                       providers: [
