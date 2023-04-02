@@ -1,3 +1,4 @@
+import 'package:e_books/domain/repository/shelf_repository.dart';
 import 'package:e_books/presentation/di/profile_holder.dart';
 import 'package:get_it/get_it.dart';
 
@@ -5,6 +6,7 @@ import '../../data/repository/auth_repo_impl.dart';
 import '../../data/repository/book_repository_impl.dart';
 import '../../data/repository/preferences_repo_impl.dart';
 import '../../data/repository/profile_repo_impl.dart';
+import '../../data/repository/shelf_repo_impl.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../../domain/repository/book_repository.dart';
 import '../../domain/repository/preferences_repository.dart';
@@ -20,6 +22,7 @@ class AppModule {
     _provideAuthRepository();
     _provideProfileRepository();
     _provideBookRepository();
+    _provideShelfRepository();
 
     _provided = true;
   }
@@ -54,6 +57,14 @@ class AppModule {
 
   static BookRepository getBookRepository() {
     return GetIt.instance.get<BookRepositoryImpl>();
+  }
+
+  void _provideShelfRepository() {
+    GetIt.instance.registerSingleton(ShelfRepositoryImpl());
+  }
+
+  static ShelfRepository getShelfRepository() {
+    return GetIt.instance.get<ShelfRepositoryImpl>();
   }
 
   void _providePreferencesRepository() {

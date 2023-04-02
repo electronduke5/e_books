@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:e_books/presentation/cubits/auth/auth_cubit.dart';
 import 'package:e_books/presentation/cubits/book/book_cubit.dart';
 import 'package:e_books/presentation/cubits/profile/profile_cubit.dart';
+import 'package:e_books/presentation/cubits/shelves/shelf_cubit.dart';
 import 'package:e_books/presentation/cubits/theme/theme_cubit.dart';
 import 'package:e_books/presentation/pages/auth_pages/code_confirm_page.dart';
 import 'package:e_books/presentation/pages/auth_pages/sign_up_next.dart';
@@ -10,6 +11,7 @@ import 'package:e_books/presentation/pages/book_info_page.dart';
 import 'package:e_books/presentation/pages/bookmarks_page.dart';
 import 'package:e_books/presentation/pages/loading_page.dart';
 import 'package:e_books/presentation/pages/read_book_page.dart';
+import 'package:e_books/presentation/pages/shelves_page.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,6 +132,13 @@ class _EBooksAppState extends State<EBooksApp> {
                         create: (context) => BookCubit()),
                   ],
                   child: BookInfoPage(),
+                ),
+                '/shelves': (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider<ShelfCubit>(
+                        create: (context) => ShelfCubit()..loadShelves()),
+                  ],
+                  child: ShelvesPage(),
                 ),
                 '/bookmarks': (context) => MultiBlocProvider(
                   providers: [

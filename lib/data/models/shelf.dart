@@ -12,7 +12,7 @@ class Shelf with _$Shelf {
     required int id,
     required String title,
     required User owner,
-    required List<Book> books,
+    required List<Book>? books,
   }) = _Shelf;
 
   factory Shelf.fromJson(Map<String, dynamic> json) => _$ShelfFromJson(json);

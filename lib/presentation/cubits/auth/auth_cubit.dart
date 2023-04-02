@@ -19,7 +19,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       final user = await repository.signIn(code, email, hash);
       AppModule.getProfileHolder().user = user;
-      await AppModule.getPreferencesRepository().saveProfile(user.token);
+      await AppModule.getPreferencesRepository().saveProfile(user.token!);
       emit(state.copyWith(apiStatus: LoadedStatus(item: user)));
     } catch (exception) {
       emit(state.copyWith(apiStatus: FailedStatus(exception.toString())));
@@ -47,7 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       final user = await repository.signInByToken(state.token);
       AppModule.getProfileHolder().user = user;
-      await AppModule.getPreferencesRepository().saveProfile(user.token);
+      await AppModule.getPreferencesRepository().saveProfile(user.token!);
       emit(state.copyWith(apiStatus: LoadedStatus(item: user)));
     } catch (exception) {
       emit(state.copyWith(apiStatus: FailedStatus(exception.toString())));

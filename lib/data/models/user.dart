@@ -17,7 +17,7 @@ class User with _$User {
     required String? patronymic,
     required String username,
     required String email,
-    required String token,
+    required String? token,
     required List<Book>? bookmarks,
     required List<Shelf>? shelves,
     required List<Quote>? quotes,

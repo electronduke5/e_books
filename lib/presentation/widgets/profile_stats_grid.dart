@@ -33,7 +33,9 @@ class ProfileStatsGrid extends StatelessWidget {
           mainAxisCellCount: 1,
         ),
         profileStatTile(
-          onTap: (){},
+          onTap: (){
+            Navigator.of(context).pushNamed('/shelves');
+          },
           title: 'Полки',
           value: user.shelves?.length,
           crossAxisCellCount: 1,
