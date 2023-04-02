@@ -9,6 +9,7 @@ import 'package:e_books/presentation/pages/auth_pages/code_confirm_page.dart';
 import 'package:e_books/presentation/pages/auth_pages/sign_up_next.dart';
 import 'package:e_books/presentation/pages/book_info_page.dart';
 import 'package:e_books/presentation/pages/bookmarks_page.dart';
+import 'package:e_books/presentation/pages/bookshelf_page.dart';
 import 'package:e_books/presentation/pages/loading_page.dart';
 import 'package:e_books/presentation/pages/read_book_page.dart';
 import 'package:e_books/presentation/pages/shelves_page.dart';
@@ -130,6 +131,8 @@ class _EBooksAppState extends State<EBooksApp> {
                   providers: [
                     BlocProvider<BookCubit>(
                         create: (context) => BookCubit()),
+                    BlocProvider<ShelfCubit>(
+                        create: (context) => ShelfCubit()),
                   ],
                   child: BookInfoPage(),
                 ),
@@ -139,6 +142,13 @@ class _EBooksAppState extends State<EBooksApp> {
                         create: (context) => ShelfCubit()..loadShelves()),
                   ],
                   child: ShelvesPage(),
+                ),
+                '/bookshelf': (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider<ShelfCubit>(
+                        create: (context) => ShelfCubit()),
+                  ],
+                  child: BookshelfPage(),
                 ),
                 '/bookmarks': (context) => MultiBlocProvider(
                   providers: [

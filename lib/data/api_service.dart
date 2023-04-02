@@ -45,14 +45,15 @@ mixin ApiService<T extends Object> {
         },
       ),
     );
-
+    print('${ApiConstUrl.baseUrl}$apiRoute/${id ?? ''}]');
     final response =
         await dio.get('${ApiConstUrl.baseUrl}$apiRoute/${id ?? ''}]');
-
+    print(response.statusCode);
     if (response.statusCode != HttpStatus.ok) {
       throw Exception('Request return error code: ${response.statusCode}');
     }
-
+    print(response.data);
+    print('data: ${response.data['data']}');
     final jsonList = response.data['data'];
     print(jsonList);
     return jsonList.runtimeType is List<T>
@@ -74,6 +75,33 @@ mixin ApiService<T extends Object> {
     if (response.statusCode != HttpStatus.noContent) {
       throw Exception(['Error =_-']);
     }
+  }
+
+  Future<String> getDelete({
+    Map<String, dynamic>? params,
+    int? id,
+  }) async {
+    final dio = Dio(
+      BaseOptions(
+        validateStatus: (status) => true,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Bearer ${AppModule.getProfileHolder().user.token}"
+        },
+        queryParameters: params,
+      ),
+    );
+    print('${ApiConstUrl.baseUrl}$apiRoute');
+    final response = await dio.get('${ApiConstUrl.baseUrl}$apiRoute');
+
+    print(response.statusCode);
+    if (response.statusCode != HttpStatus.ok ||
+        response.statusCode != HttpStatus.noContent) {
+      return 'Ошибка на сервере';
+    }
+    print('response.data[message]: ${response.data['message']}');
+    return response.data['message'];
+
   }
 
   Future<T> post({

@@ -17,6 +17,8 @@ class ShelfCubit extends Cubit<ShelfState> {
       emit(state.copyWith(shelvesStatus: LoadedStatus(item: shelves)));
       return shelves;
     } catch (e) {
+      print(e);
+      print(state.shelvesStatus.message);
       emit(state.copyWith(shelvesStatus: FailedStatus(state.shelvesStatus.message)));
       return null;
     }
@@ -44,6 +46,55 @@ class ShelfCubit extends Cubit<ShelfState> {
       emit(state.copyWith(deleteStatus: LoadedStatus()));
     } catch (e) {
       emit(state.copyWith(deleteStatus: FailedStatus(state.deleteStatus.message)));
+    }
+  }
+
+  Future<Shelf?> addBookToShelf({
+    required int bookId,
+    required int shelfId,
+  }) async {
+    final repository = AppModule.getShelfRepository();
+    emit(state.copyWith(addBookToShelfStatus: LoadingStatus()));
+
+    try {
+      final Shelf shelf = await repository.addBookToShelf(
+        bookId: bookId,
+        shelfId: shelfId,
+      );
+      emit(state.copyWith(addBookToShelfStatus: LoadedStatus(item: shelf)));
+      return shelf;
+    } catch (e) {
+      emit(state.copyWith(
+          addBookToShelfStatus: FailedStatus(state.shelvesStatus.message)));
+      return null;
+    }
+  }
+
+  Future deleteBookFromShelf({
+    required int bookId,
+    required int shelfId,
+  }) async {
+    final repository = AppModule.getShelfRepository();
+    emit(state.copyWith(deleteBookStatus: LoadingStatus()));
+    try {
+      await repository.deleteBookshelf(shelfId: shelfId, bookId: bookId);
+      emit(state.copyWith(deleteBookStatus: LoadedStatus()));
+    } catch (e) {
+      emit(state.copyWith(deleteBookStatus: FailedStatus(state.deleteStatus.message)));
+    }
+  }
+
+  Future<Shelf?> getShelfById(int id) async {
+    final repository = AppModule.getShelfRepository();
+    emit(state.copyWith(shelfByIdStatus: LoadingStatus()));
+
+    try {
+      final Shelf shelf = await repository.getShelfById(id);
+      emit(state.copyWith(shelfByIdStatus: LoadedStatus(item: shelf)));
+      return shelf;
+    } catch (e) {
+      emit(state.copyWith(shelfByIdStatus: FailedStatus(state.shelvesStatus.message)));
+      return null;
     }
   }
 }
