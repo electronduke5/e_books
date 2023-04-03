@@ -27,6 +27,7 @@ mixin _$Book {
   String? get file => throw _privateConstructorUsedError;
   double? get rating => throw _privateConstructorUsedError;
   List<Author>? get authors => throw _privateConstructorUsedError;
+  List<Review>? get reviews => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $BookCopyWith<$Res> {
       String? image,
       String? file,
       double? rating,
-      List<Author>? authors});
+      List<Author>? authors,
+      List<Review>? reviews});
 }
 
 /// @nodoc
@@ -68,6 +70,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? file = freezed,
     Object? rating = freezed,
     Object? authors = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -98,6 +101,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
               as List<Author>?,
+      reviews: freezed == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Review>?,
     ) as $Val);
   }
 }
@@ -115,7 +122,8 @@ abstract class _$$_BookCopyWith<$Res> implements $BookCopyWith<$Res> {
       String? image,
       String? file,
       double? rating,
-      List<Author>? authors});
+      List<Author>? authors,
+      List<Review>? reviews});
 }
 
 /// @nodoc
@@ -134,6 +142,7 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
     Object? file = freezed,
     Object? rating = freezed,
     Object? authors = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_$_Book(
       id: null == id
@@ -164,6 +173,10 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
           ? _value._authors
           : authors // ignore: cast_nullable_to_non_nullable
               as List<Author>?,
+      reviews: freezed == reviews
+          ? _value._reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Review>?,
     ));
   }
 }
@@ -178,8 +191,10 @@ class _$_Book implements _Book {
       this.image,
       this.file,
       this.rating,
-      final List<Author>? authors})
-      : _authors = authors;
+      final List<Author>? authors,
+      final List<Review>? reviews})
+      : _authors = authors,
+        _reviews = reviews;
 
   factory _$_Book.fromJson(Map<String, dynamic> json) => _$$_BookFromJson(json);
 
@@ -205,9 +220,19 @@ class _$_Book implements _Book {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Review>? _reviews;
+  @override
+  List<Review>? get reviews {
+    final value = _reviews;
+    if (value == null) return null;
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'Book(id: $id, title: $title, yearOfIssue: $yearOfIssue, image: $image, file: $file, rating: $rating, authors: $authors)';
+    return 'Book(id: $id, title: $title, yearOfIssue: $yearOfIssue, image: $image, file: $file, rating: $rating, authors: $authors, reviews: $reviews)';
   }
 
   @override
@@ -222,13 +247,22 @@ class _$_Book implements _Book {
             (identical(other.image, image) || other.image == image) &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.rating, rating) || other.rating == rating) &&
-            const DeepCollectionEquality().equals(other._authors, _authors));
+            const DeepCollectionEquality().equals(other._authors, _authors) &&
+            const DeepCollectionEquality().equals(other._reviews, _reviews));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, yearOfIssue, image,
-      file, rating, const DeepCollectionEquality().hash(_authors));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      yearOfIssue,
+      image,
+      file,
+      rating,
+      const DeepCollectionEquality().hash(_authors),
+      const DeepCollectionEquality().hash(_reviews));
 
   @JsonKey(ignore: true)
   @override
@@ -252,7 +286,8 @@ abstract class _Book implements Book {
       final String? image,
       final String? file,
       final double? rating,
-      final List<Author>? authors}) = _$_Book;
+      final List<Author>? authors,
+      final List<Review>? reviews}) = _$_Book;
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$_Book.fromJson;
 
@@ -270,6 +305,8 @@ abstract class _Book implements Book {
   double? get rating;
   @override
   List<Author>? get authors;
+  @override
+  List<Review>? get reviews;
   @override
   @JsonKey(ignore: true)
   _$$_BookCopyWith<_$_Book> get copyWith => throw _privateConstructorUsedError;

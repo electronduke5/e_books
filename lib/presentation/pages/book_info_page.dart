@@ -11,6 +11,7 @@ import '../../data/models/book.dart';
 import '../../data/models/shelf.dart';
 import '../../data/models/user.dart';
 import '../cubits/shelves/shelf_cubit.dart';
+import '../widgets/review_widget.dart';
 import '../widgets/snack_bar.dart';
 
 class BookInfoPage extends StatelessWidget {
@@ -143,6 +144,38 @@ class BookInfoPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
+                const SizedBox(height: 10),
+                const Divider(),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Отзывы',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    OutlinedButton(onPressed: () {}, child: Text('Добавить отзыв'))
+                  ],
+                ),
+                const SizedBox(height: 10),
+                () {
+                  if (book!.reviews == null || book.reviews!.isEmpty) {
+                    return Text('Отзывов еще нет');
+                  }
+                  return SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: book.reviews?.length,
+                      itemBuilder: (context, index) {
+                        return ReviewCard(
+                          review: book.reviews![index],
+                        );
+                      },
+                    ),
+                  );
+                }(),
               ],
             ),
           ),
@@ -170,49 +203,49 @@ class BookInfoPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 const Divider(),
                 const SizedBox(height: 10),
-                BlocBuilder<ShelfCubit,ShelfState>(
-                  builder: (context,state) {
-                    print('shelves status in book_info_page: ${state.shelvesStatus.runtimeType}');
-                    if(state.shelvesStatus.runtimeType == LoadingStatus<List<Shelf>>){
-                      return const Center(child: CircularProgressIndicator(),);
-                    }
-
-                    if(state.shelvesStatus.runtimeType == LoadedStatus<List<Shelf>>){
-                      return Expanded(
-                        child: ListView.builder(
-                          itemCount: shelves!.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              child: ListTile(
-                                // shape: RoundedRectangleBorder(
-                                //   borderRadius: BorderRadius.circular(10),
-                                // ),
-                                //tileColor: Theme.of(context).colorScheme.secondaryContainer,
-                                title: Text(shelves[index].title),
-                                onTap: () async {
-                                  await context
-                                      .read<ShelfCubit>()
-                                      .addBookToShelf(
-                                      bookId: bookId, shelfId: shelves[index].id)
-                                      .then((value) {
-                                    Navigator.of(context).pop();
-                                    SnackBarInfo.show(
-                                        context: context,
-                                        message:
-                                        "Книга добавлена на полку '${shelves[index].title}'",
-                                        isSuccess: true);
-                                  });
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    }
-                    return SizedBox();
-
+                BlocBuilder<ShelfCubit, ShelfState>(builder: (context, state) {
+                  print(
+                      'shelves status in book_info_page: ${state.shelvesStatus.runtimeType}');
+                  if (state.shelvesStatus.runtimeType == LoadingStatus<List<Shelf>>) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
-                ),
+
+                  if (state.shelvesStatus.runtimeType == LoadedStatus<List<Shelf>>) {
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: shelves!.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            child: ListTile(
+                              // shape: RoundedRectangleBorder(
+                              //   borderRadius: BorderRadius.circular(10),
+                              // ),
+                              //tileColor: Theme.of(context).colorScheme.secondaryContainer,
+                              title: Text(shelves[index].title),
+                              onTap: () async {
+                                await context
+                                    .read<ShelfCubit>()
+                                    .addBookToShelf(
+                                        bookId: bookId, shelfId: shelves[index].id)
+                                    .then((value) {
+                                  Navigator.of(context).pop();
+                                  SnackBarInfo.show(
+                                      context: context,
+                                      message:
+                                          "Книга добавлена на полку '${shelves[index].title}'",
+                                      isSuccess: true);
+                                });
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                  return SizedBox();
+                }),
               ],
             ),
           ),

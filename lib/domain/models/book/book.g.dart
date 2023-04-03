@@ -16,6 +16,9 @@ _$_Book _$$_BookFromJson(Map<String, dynamic> json) => _$_Book(
       authors: (json['authors'] as List<dynamic>?)
           ?.map((e) => Author.fromJson(e as Map<String, dynamic>))
           .toList(),
+      reviews: (json['reviews'] as List<dynamic>?)
+          ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_BookToJson(_$_Book instance) => <String, dynamic>{
@@ -26,4 +29,5 @@ Map<String, dynamic> _$$_BookToJson(_$_Book instance) => <String, dynamic>{
       'file': instance.file,
       'rating': instance.rating,
       'authors': instance.authors,
+      'reviews': instance.reviews,
     };

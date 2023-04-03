@@ -1,3 +1,4 @@
+import 'package:e_books/data/models/review.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'author.dart';
@@ -15,6 +16,7 @@ class Book with _$Book {
     String? file,
     double? rating,
     List<Author>? authors,
+    List<Review>? reviews,
   }) = _Book;
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
