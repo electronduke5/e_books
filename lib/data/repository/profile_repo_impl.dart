@@ -10,12 +10,16 @@ class ProfileRepositoryImpl with ApiService<User> implements ProfileRepository {
   String apiRoute = ApiConstUrl.userUrl;
 
   @override
-  Future<User> getProfile({User? user}) async {
-    final User receivedUser = user == null
+  Future<User> getProfile({User? user, bool isFromApi = false}) async {
+    User receivedUser = user == null
         ? AppModule.getProfileHolder().user
         : await get(
-            fromJson: (Map<String, dynamic> json) => User.fromJson(json),
-            id: user.id);
+            fromJson: (Map<String, dynamic> json) => User.fromJson(json), id: user.id);
+
+    if (isFromApi) {
+      receivedUser = await get(
+          fromJson: (Map<String, dynamic> json) => User.fromJson(json), id: user!.id);
+    }
     print('User from AppModule: ${AppModule.getProfileHolder().user}');
     return receivedUser;
   }

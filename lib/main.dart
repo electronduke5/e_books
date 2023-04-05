@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:e_books/presentation/cubits/auth/auth_cubit.dart';
 import 'package:e_books/presentation/cubits/book/book_cubit.dart';
 import 'package:e_books/presentation/cubits/profile/profile_cubit.dart';
+import 'package:e_books/presentation/cubits/review/review_cubit.dart';
 import 'package:e_books/presentation/cubits/shelves/shelf_cubit.dart';
 import 'package:e_books/presentation/cubits/theme/theme_cubit.dart';
 import 'package:e_books/presentation/pages/auth_pages/code_confirm_page.dart';
@@ -13,6 +14,7 @@ import 'package:e_books/presentation/pages/bookshelf_page.dart';
 import 'package:e_books/presentation/pages/loading_page.dart';
 import 'package:e_books/presentation/pages/read_book_page.dart';
 import 'package:e_books/presentation/pages/shelves_page.dart';
+import 'package:e_books/presentation/pages/user_reviews_page.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -125,7 +127,7 @@ class _EBooksAppState extends State<EBooksApp> {
                 ),
                 '/codeConfirmPage': (context) => BlocProvider<AuthCubit>(
                       create: (context) => AuthCubit(),
-                      child: CodeConfirmPage(),
+                      child: const CodeConfirmPage(),
                     ),
                 '/book-info': (context) => MultiBlocProvider(
                   providers: [
@@ -133,6 +135,8 @@ class _EBooksAppState extends State<EBooksApp> {
                         create: (context) => BookCubit()),
                     BlocProvider<ShelfCubit>(
                         create: (context) => ShelfCubit()),
+                    BlocProvider<ReviewCubit>(
+                        create: (context) => ReviewCubit()),
                   ],
                   child: BookInfoPage(),
                 ),
@@ -143,12 +147,19 @@ class _EBooksAppState extends State<EBooksApp> {
                   ],
                   child: ShelvesPage(),
                 ),
+                '/user-reviews': (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider<ReviewCubit>(
+                        create: (context) => ReviewCubit()),
+                  ],
+                  child: UserReviewsPage(),
+                ),
                 '/bookshelf': (context) => MultiBlocProvider(
                   providers: [
                     BlocProvider<ShelfCubit>(
                         create: (context) => ShelfCubit()),
                   ],
-                  child: BookshelfPage(),
+                  child: const BookshelfPage(),
                 ),
                 '/bookmarks': (context) => MultiBlocProvider(
                   providers: [
@@ -157,7 +168,7 @@ class _EBooksAppState extends State<EBooksApp> {
                   ],
                   child: BookmarkPage(),
                 ),
-                '/read-book': (context) => ReadBookPage(),
+                '/read-book': (context) => const ReadBookPage(),
                 '/main': (context) => MultiBlocProvider(
                       providers: [
                         BlocProvider<ProfileCubit>(
@@ -165,7 +176,7 @@ class _EBooksAppState extends State<EBooksApp> {
                         BlocProvider<BookCubit>(
                             create: (context) => BookCubit()..loadBooks()),
                       ],
-                      child: MainPage(),
+                      child: const MainPage(),
                     ),
               },
               initialRoute: user.data == null ? '/sign-up' : '/main',

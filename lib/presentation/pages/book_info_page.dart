@@ -1,13 +1,16 @@
 import 'package:collection/collection.dart';
 import 'package:e_books/presentation/cubits/book/book_cubit.dart';
 import 'package:e_books/presentation/cubits/models_status.dart';
+import 'package:e_books/presentation/cubits/review/review_cubit.dart';
 import 'package:e_books/presentation/di/app_module.dart';
 import 'package:e_books/presentation/widgets/book_cover_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../data/models/author.dart';
 import '../../data/models/book.dart';
+import '../../data/models/review.dart';
 import '../../data/models/shelf.dart';
 import '../../data/models/user.dart';
 import '../cubits/shelves/shelf_cubit.dart';
@@ -18,6 +21,12 @@ class BookInfoPage extends StatelessWidget {
   BookInfoPage({Key? key}) : super(key: key);
 
   final scaffoldState = GlobalKey<ScaffoldState>();
+
+
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController descriptionController = TextEditingController();
+  int rating = 0;
 
   bool checkBookmark(Book? book) {
     User user = AppModule.getProfileHolder().user;
@@ -37,31 +46,7 @@ class BookInfoPage extends StatelessWidget {
     isBookmarkChecked = checkBookmark(book);
     return Scaffold(
       key: scaffoldState,
-      appBar: AppBar(
-        title: Text(
-          "${book?.title}",
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-        actions: [
-          BlocBuilder<BookCubit, BookState>(
-            builder: (ctx, state) {
-              return IconButton(
-                onPressed: () async {
-                  await context
-                      .read<BookCubit>()
-                      .addBookmark(book!.id)
-                      .then((value) => isBookmarkChecked = value ?? false);
-                },
-                //icon: Icon(checkBookmark(book) ? Icons.bookmark : Icons.bookmark_border, color: Colors.yellow,),
-                icon: Icon(
-                  isBookmarkChecked ? Icons.bookmark : Icons.bookmark_border,
-                  color: Colors.yellow,
-                ),
-              );
-            },
-          ),
-        ],
-      ),
+      appBar: buildAppBar(book, context),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -154,18 +139,21 @@ class BookInfoPage extends StatelessWidget {
                       'Отзывы',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    OutlinedButton(onPressed: () {}, child: Text('Добавить отзыв'))
+                    OutlinedButton(
+                        onPressed: () {
+                          _showCreateReviewSheet(book!);
+                        },
+                        child: const Text('Добавить отзыв'))
                   ],
                 ),
                 const SizedBox(height: 10),
                 () {
                   if (book!.reviews == null || book.reviews!.isEmpty) {
-                    return Text('Отзывов еще нет');
+                    return const Text('Отзывов еще нет');
                   }
                   return SizedBox(
                     height: 200,
                     child: ListView.builder(
-                      shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: book.reviews?.length,
                       itemBuilder: (context, index) {
@@ -181,6 +169,34 @@ class BookInfoPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  AppBar buildAppBar(Book? book, BuildContext context) {
+    return AppBar(
+      title: Text(
+        "${book?.title}",
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      actions: [
+        BlocBuilder<BookCubit, BookState>(
+          builder: (ctx, state) {
+            return IconButton(
+              onPressed: () async {
+                await context
+                    .read<BookCubit>()
+                    .addBookmark(book!.id)
+                    .then((value) => isBookmarkChecked = value ?? false);
+              },
+              //icon: Icon(checkBookmark(book) ? Icons.bookmark : Icons.bookmark_border, color: Colors.yellow,),
+              icon: Icon(
+                isBookmarkChecked ? Icons.bookmark : Icons.bookmark_border,
+                color: Colors.yellow,
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 
@@ -244,9 +260,102 @@ class BookInfoPage extends StatelessWidget {
                       ),
                     );
                   }
-                  return SizedBox();
+                  return const SizedBox();
                 }),
               ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showCreateReviewSheet(Book book) async {
+    scaffoldState.currentState?.showBottomSheet(
+      (context) => BlocListener<ReviewCubit, ReviewState>(
+        listener: (context, state) {
+          if (state.createReviewStatus.runtimeType == LoadedStatus<Review>) {
+            SnackBarInfo.show(
+                context: context, message: "Отзыв доавблен", isSuccess: true);
+          }
+        },
+        child: SizedBox(
+          height: 310,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  const Text(
+                    'Добавление отзыва на книгу',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  const Divider(),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: TextFormField(
+                      controller: descriptionController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Это обязательное поле';
+                        }
+                        if (value.length >= 120) {
+                          return 'Максимум - 120 символов';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Расскажите впечатления',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  RatingBar.builder(
+                    minRating: 1,
+                    maxRating: 10,
+                    direction: Axis.horizontal,
+                    itemCount: 10,
+                    //allowHalfRating: true,
+                    glow: false,
+                    updateOnDrag: true,
+                    itemSize: MediaQuery.of(context).size.width / 11,
+                    itemBuilder: (context, index) {
+                      return Icon(Icons.star,
+                          color: Theme.of(context).colorScheme.secondary);
+                    },
+                    onRatingUpdate: (double value) =>
+                        context.read<ReviewCubit>().ratingChanged(value.toInt()),
+                  ),
+                  const SizedBox(height: 10),
+                  BlocBuilder<ReviewCubit, ReviewState>(
+                    builder: (context, state) {
+                      return Text('${state.rating.toString()}/10');
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  BlocBuilder<ReviewCubit, ReviewState>(
+                    builder: (context, state) => ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          final String description = descriptionController.value.text;
+                          await context.read<ReviewCubit>().createReview(
+                                description: description,
+                                book: book,
+                                rating: state.rating,
+                              ).then((value) => Navigator.of(context).pop());
+                        }
+                      },
+                      child: const Text('Добавить'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

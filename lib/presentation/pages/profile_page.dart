@@ -14,12 +14,14 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: RefreshIndicator(
-        onRefresh: () async {
-          await context.read<ProfileCubit>().loadProfile();
-        },
+    return RefreshIndicator(
+      onRefresh: () async {
+        await context
+            .read<ProfileCubit>()
+            .loadProfile(user: AppModule.getProfileHolder().user);
+      },
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         child: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {
             switch (state.status.runtimeType) {
@@ -94,7 +96,10 @@ class ProfilePage extends StatelessWidget {
                   ),
                 );
               case LoadingStatus<User>:
-                return const Center(child: CircularProgressIndicator());
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: const Center(child: CircularProgressIndicator()),
+                );
               case FailedStatus<User>:
                 return Center(child: Text(state.status.message ?? 'Failed load profile'));
               default:

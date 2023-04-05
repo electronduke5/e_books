@@ -6,7 +6,7 @@ part of '../../../data/models/book.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Book _$$_BookFromJson(Map<String, dynamic> json) => _$_Book(
+_$_Book _$$_BookFromJson(Map<String, dynamic>   json) => _$_Book(
       id: json['id'] as int,
       title: json['title'] as String,
       yearOfIssue: json['yearOfIssue'] as String,

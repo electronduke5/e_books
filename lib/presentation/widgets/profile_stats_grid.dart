@@ -26,7 +26,9 @@ class ProfileStatsGrid extends StatelessWidget {
           mainAxisCellCount: 1,
         ),
         profileStatTile(
-          onTap: (){},
+          onTap: (){
+            Navigator.of(context).pushNamed('/user-reviews',arguments: user.reviews);
+          },
           title: 'Ревью',
           value: user.reviews?.length,
           crossAxisCellCount: 1,

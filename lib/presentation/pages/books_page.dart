@@ -68,7 +68,11 @@ class BooksPage extends StatelessWidget {
 
   Widget buildBooksList(BuildContext context) {
     return RefreshIndicator(onRefresh: () async {
-      await context.read<BookCubit>().loadBooks();
+      await context.read<BookCubit>().loadBooks().then((value) {
+        print(value);
+        allBooks = value ?? allBooks;
+        print('allBooks: $allBooks');
+      });
     }, child: BlocBuilder<BookCubit, BookState>(
       builder: (context, state) {
         print('booksStatus: ${state.booksStatus.runtimeType}');
