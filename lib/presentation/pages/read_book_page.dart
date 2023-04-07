@@ -116,7 +116,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   CircularProgressIndicator(),
-                  Text('Downloading.... E-pub'),
+                  Text('Загрузка книги...'),
                 ],
               )
             : Column(
@@ -155,7 +155,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
 
                       }
                     },
-                    child: Text('Open Online E-pub'),
+                    child: const Text('Открыть эл. книгу'),
                   ),
                 ],
               ),

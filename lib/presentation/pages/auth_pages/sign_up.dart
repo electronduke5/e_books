@@ -1,35 +1,23 @@
 import 'package:e_books/presentation/cubits/auth/auth_cubit.dart';
+import 'package:e_books/presentation/widgets/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key})
-      : super(key: key);
+  SignUpPage({Key? key}) : super(key: key);
 
-  final GlobalKey<
-      FormState> _key = GlobalKey<
-      FormState>();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
-  final TextEditingController _surnameController =
-  TextEditingController(
-      text: 'Иванов');
-  final TextEditingController _nameController =
-  TextEditingController(
-      text: 'Иван');
-  final TextEditingController _patronymicController =
-  TextEditingController(
-      text: 'Иванович');
+  final TextEditingController _surnameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _patronymicController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocListener<
-            AuthCubit,
-            AuthState>(
-          listener: (context,
-              state) {},
+        child: BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) {},
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
@@ -180,11 +168,12 @@ class SignUpPage extends StatelessWidget {
                                 height: 10),
                             TextButton(
                               onPressed: () {
-                                Navigator
-                                    .of(
-                                    context)
-                                    .pushNamed(
-                                    '/sign-in');
+                                SnackBarInfo.show(
+                                    context: context,
+                                    message:
+                                        'На вашу почту отправлено письмо для подтверждения почты!',
+                                    isSuccess: true);
+                                Navigator.of(context).pushNamed('/sign-in');
                               },
                               child: Text(
                                   'Уже есть аккаунт?'),

@@ -44,14 +44,6 @@ class ProfileStatsGrid extends StatelessWidget {
           mainAxisCellCount: 1,
         ),
 
-        profileStatTile(
-          onTap: (){},
-          title: 'Что-то ещё',
-          value: 12,
-          crossAxisCellCount: 2,
-          mainAxisCellCount: 1,
-        ),
-
       ],
     );
   }

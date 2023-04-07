@@ -70,4 +70,13 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Add this lines app level build.gradle
+    implementation('androidx.appcompat:appcompat') {
+        version {
+            strictly '1.2.0'
+        }
+    }
+    implementation 'androidx.core:core:1.5.0'
+    // Your problem will be solved.
 }

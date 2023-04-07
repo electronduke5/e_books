@@ -11,9 +11,9 @@ class SignUpNextPage extends StatelessWidget {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   final TextEditingController _usernameController =
-      TextEditingController(text: 'electronduke');
+      TextEditingController();
   final TextEditingController _emailController =
-      TextEditingController(text: 'g.pav5@mail.ru');
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@
     package="com.example.e_books">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="e_books"
+        android:label="eBooks"
        android:name="${applicationName}"
        android:icon="@mipmap/ic_launcher"
        android:usesCleartextTraffic="true"

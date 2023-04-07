@@ -44,6 +44,7 @@ dependencies:
   flutter_bloc: ^8.1.2
   google_fonts: ^4.0.3
   flutter_svg: ^2.0.4
+  lottie: ^2.2.0
   shared_preferences: ^2.0.18
   flex_color_scheme: ^6.1.2
   pin_code_fields: ^7.4.0
@@ -53,8 +54,12 @@ dependencies:
   path_provider: ^2.0.14
   flutter_staggered_grid_view: ^0.6.2
   intl: ^0.18.0
+  flutter_launcher_icons: ^0.12.0
  # device_info_plus: ^8.1.0
 
+flutter_icons:
+  image_path: 'assets/images/logo_ebooks.png'
+  android: true
 dev_dependencies:
   flutter_test:
     sdk: flutter
