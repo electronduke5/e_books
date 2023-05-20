@@ -52,8 +52,8 @@ class _MainPageState extends State<MainPage> {
       elevation: 0,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
-          label: 'Главная',
+          icon: Icon(Icons.add),
+          label: 'Добавить книгу',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.book_outlined),

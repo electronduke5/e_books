@@ -21,18 +21,37 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   int get id => throw _privateConstructorUsedError;
+
   String get surname => throw _privateConstructorUsedError;
+
   String get name => throw _privateConstructorUsedError;
+
   String? get patronymic => throw _privateConstructorUsedError;
+
   String get username => throw _privateConstructorUsedError;
+
   String get email => throw _privateConstructorUsedError;
+
   String? get token => throw _privateConstructorUsedError;
+
+  double get wallet => throw _privateConstructorUsedError;
+
+  Role? get role => throw _privateConstructorUsedError;
+
   List<Book>? get bookmarks => throw _privateConstructorUsedError;
+
+  List<User>? get followers => throw _privateConstructorUsedError;
+
+  List<User>? get subscriptions => throw _privateConstructorUsedError;
+
   List<Shelf>? get shelves => throw _privateConstructorUsedError;
+
   List<Quote>? get quotes => throw _privateConstructorUsedError;
+
   List<Review>? get reviews => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
 }
@@ -41,6 +60,7 @@ mixin _$User {
 abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
+
   @useResult
   $Res call(
       {int id,
@@ -50,10 +70,16 @@ abstract class $UserCopyWith<$Res> {
       String username,
       String email,
       String? token,
+      double wallet,
+      Role? role,
       List<Book>? bookmarks,
+      List<User>? followers,
+      List<User>? subscriptions,
       List<Shelf>? shelves,
       List<Quote>? quotes,
       List<Review>? reviews});
+
+  $RoleCopyWith<$Res>? get role;
 }
 
 /// @nodoc
@@ -63,6 +89,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -76,7 +103,11 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? username = null,
     Object? email = null,
     Object? token = freezed,
+    Object? wallet = null,
+    Object? role = freezed,
     Object? bookmarks = freezed,
+    Object? followers = freezed,
+    Object? subscriptions = freezed,
     Object? shelves = freezed,
     Object? quotes = freezed,
     Object? reviews = freezed,
@@ -110,10 +141,26 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      wallet: null == wallet
+          ? _value.wallet
+          : wallet // ignore: cast_nullable_to_non_nullable
+              as double,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as Role?,
       bookmarks: freezed == bookmarks
           ? _value.bookmarks
           : bookmarks // ignore: cast_nullable_to_non_nullable
               as List<Book>?,
+      followers: freezed == followers
+          ? _value.followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<User>?,
+      subscriptions: freezed == subscriptions
+          ? _value.subscriptions
+          : subscriptions // ignore: cast_nullable_to_non_nullable
+              as List<User>?,
       shelves: freezed == shelves
           ? _value.shelves
           : shelves // ignore: cast_nullable_to_non_nullable
@@ -128,12 +175,25 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
               as List<Review>?,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RoleCopyWith<$Res>? get role {
+    if (_value.role == null) {
+      return null;
+    }
+
+    return $RoleCopyWith<$Res>(_value.role!, (value) {
+      return _then(_value.copyWith(role: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
 abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$$_UserCopyWith(_$_User value, $Res Function(_$_User) then) =
       __$$_UserCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call(
@@ -144,10 +204,17 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String username,
       String email,
       String? token,
+      double wallet,
+      Role? role,
       List<Book>? bookmarks,
+      List<User>? followers,
+      List<User>? subscriptions,
       List<Shelf>? shelves,
       List<Quote>? quotes,
       List<Review>? reviews});
+
+  @override
+  $RoleCopyWith<$Res>? get role;
 }
 
 /// @nodoc
@@ -166,7 +233,11 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? username = null,
     Object? email = null,
     Object? token = freezed,
+    Object? wallet = null,
+    Object? role = freezed,
     Object? bookmarks = freezed,
+    Object? followers = freezed,
+    Object? subscriptions = freezed,
     Object? shelves = freezed,
     Object? quotes = freezed,
     Object? reviews = freezed,
@@ -200,10 +271,26 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      wallet: null == wallet
+          ? _value.wallet
+          : wallet // ignore: cast_nullable_to_non_nullable
+              as double,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as Role?,
       bookmarks: freezed == bookmarks
           ? _value._bookmarks
           : bookmarks // ignore: cast_nullable_to_non_nullable
               as List<Book>?,
+      followers: freezed == followers
+          ? _value._followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<User>?,
+      subscriptions: freezed == subscriptions
+          ? _value._subscriptions
+          : subscriptions // ignore: cast_nullable_to_non_nullable
+              as List<User>?,
       shelves: freezed == shelves
           ? _value._shelves
           : shelves // ignore: cast_nullable_to_non_nullable
@@ -231,11 +318,17 @@ class _$_User implements _User {
       required this.username,
       required this.email,
       required this.token,
+      required this.wallet,
+      required this.role,
       required final List<Book>? bookmarks,
+      required final List<User>? followers,
+      required final List<User>? subscriptions,
       required final List<Shelf>? shelves,
       required final List<Quote>? quotes,
       required final List<Review>? reviews})
       : _bookmarks = bookmarks,
+        _followers = followers,
+        _subscriptions = subscriptions,
         _shelves = shelves,
         _quotes = quotes,
         _reviews = reviews;
@@ -256,7 +349,12 @@ class _$_User implements _User {
   final String email;
   @override
   final String? token;
+  @override
+  final double wallet;
+  @override
+  final Role? role;
   final List<Book>? _bookmarks;
+
   @override
   List<Book>? get bookmarks {
     final value = _bookmarks;
@@ -266,7 +364,30 @@ class _$_User implements _User {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<User>? _followers;
+
+  @override
+  List<User>? get followers {
+    final value = _followers;
+    if (value == null) return null;
+    if (_followers is EqualUnmodifiableListView) return _followers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<User>? _subscriptions;
+
+  @override
+  List<User>? get subscriptions {
+    final value = _subscriptions;
+    if (value == null) return null;
+    if (_subscriptions is EqualUnmodifiableListView) return _subscriptions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<Shelf>? _shelves;
+
   @override
   List<Shelf>? get shelves {
     final value = _shelves;
@@ -277,6 +398,7 @@ class _$_User implements _User {
   }
 
   final List<Quote>? _quotes;
+
   @override
   List<Quote>? get quotes {
     final value = _quotes;
@@ -287,6 +409,7 @@ class _$_User implements _User {
   }
 
   final List<Review>? _reviews;
+
   @override
   List<Review>? get reviews {
     final value = _reviews;
@@ -298,7 +421,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, surname: $surname, name: $name, patronymic: $patronymic, username: $username, email: $email, token: $token, bookmarks: $bookmarks, shelves: $shelves, quotes: $quotes, reviews: $reviews)';
+    return 'User(id: $id, surname: $surname, name: $name, patronymic: $patronymic, username: $username, email: $email, token: $token, wallet: $wallet, role: $role, bookmarks: $bookmarks, followers: $followers, subscriptions: $subscriptions, shelves: $shelves, quotes: $quotes, reviews: $reviews)';
   }
 
   @override
@@ -315,8 +438,14 @@ class _$_User implements _User {
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.token, token) || other.token == token) &&
+            (identical(other.wallet, wallet) || other.wallet == wallet) &&
+            (identical(other.role, role) || other.role == role) &&
             const DeepCollectionEquality()
                 .equals(other._bookmarks, _bookmarks) &&
+            const DeepCollectionEquality()
+                .equals(other._followers, _followers) &&
+            const DeepCollectionEquality()
+                .equals(other._subscriptions, _subscriptions) &&
             const DeepCollectionEquality().equals(other._shelves, _shelves) &&
             const DeepCollectionEquality().equals(other._quotes, _quotes) &&
             const DeepCollectionEquality().equals(other._reviews, _reviews));
@@ -333,7 +462,11 @@ class _$_User implements _User {
       username,
       email,
       token,
+      wallet,
+      role,
       const DeepCollectionEquality().hash(_bookmarks),
+      const DeepCollectionEquality().hash(_followers),
+      const DeepCollectionEquality().hash(_subscriptions),
       const DeepCollectionEquality().hash(_shelves),
       const DeepCollectionEquality().hash(_quotes),
       const DeepCollectionEquality().hash(_reviews));
@@ -353,7 +486,7 @@ class _$_User implements _User {
 
   @override
   String getFullName() {
-    return '$surname $name ${patronymic?? ''}';
+    return '$surname $name $patronymic';
   }
 
   @override
@@ -371,7 +504,11 @@ abstract class _User implements User {
       required final String username,
       required final String email,
       required final String? token,
+      required final double wallet,
+      required final Role? role,
       required final List<Book>? bookmarks,
+      required final List<User>? followers,
+      required final List<User>? subscriptions,
       required final List<Shelf>? shelves,
       required final List<Quote>? quotes,
       required final List<Review>? reviews}) = _$_User;
@@ -380,26 +517,49 @@ abstract class _User implements User {
 
   @override
   int get id;
+
   @override
   String get surname;
+
   @override
   String get name;
+
   @override
   String? get patronymic;
+
   @override
   String get username;
+
   @override
   String get email;
+
   @override
   String? get token;
+
+  @override
+  double get wallet;
+
+  @override
+  Role? get role;
+
   @override
   List<Book>? get bookmarks;
+
+  @override
+  List<User>? get followers;
+
+  @override
+  List<User>? get subscriptions;
+
   @override
   List<Shelf>? get shelves;
+
   @override
   List<Quote>? get quotes;
+
   @override
   List<Review>? get reviews;
+
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

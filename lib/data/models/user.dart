@@ -1,3 +1,4 @@
+import 'package:e_books/data/models/role.dart';
 import 'package:e_books/data/models/shelf.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -18,7 +19,11 @@ class User with _$User {
     required String username,
     required String email,
     required String? token,
+    required double wallet,
+    required Role? role,
     required List<Book>? bookmarks,
+    required List<User>? followers,
+    required List<User>? subscriptions,
     required List<Shelf>? shelves,
     required List<Quote>? quotes,
     required List<Review>? reviews,

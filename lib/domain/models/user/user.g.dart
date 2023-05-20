@@ -14,8 +14,18 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       username: json['username'] as String,
       email: json['email'] as String,
       token: json['token'] as String?,
+      wallet: (json['wallet'] as num).toDouble(),
+      role: json['role'] == null
+          ? null
+          : Role.fromJson(json['role'] as Map<String, dynamic>),
       bookmarks: (json['bookmarks'] as List<dynamic>?)
           ?.map((e) => Book.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      followers: (json['followers'] as List<dynamic>?)
+          ?.map((e) => User.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      subscriptions: (json['subscriptions'] as List<dynamic>?)
+          ?.map((e) => User.fromJson(e as Map<String, dynamic>))
           .toList(),
       shelves: (json['shelves'] as List<dynamic>?)
           ?.map((e) => Shelf.fromJson(e as Map<String, dynamic>))
@@ -36,7 +46,11 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'username': instance.username,
       'email': instance.email,
       'token': instance.token,
+      'wallet': instance.wallet,
+      'role': instance.role,
       'bookmarks': instance.bookmarks,
+      'followers': instance.followers,
+      'subscriptions': instance.subscriptions,
       'shelves': instance.shelves,
       'quotes': instance.quotes,
       'reviews': instance.reviews,

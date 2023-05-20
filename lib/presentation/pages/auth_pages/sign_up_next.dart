@@ -117,6 +117,7 @@ class SignUpNextPage extends StatelessWidget {
                                       context.read<AuthCubit>().usernameChanged(
                                           _usernameController.value.text);
                                       context.read<AuthCubit>().signUp(
+                                        role: 1,
                                             email: _emailController.value.text,
                                             surname: data['surname'],
                                             patronymic: data['patronymic'],

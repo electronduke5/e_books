@@ -42,6 +42,7 @@ class AuthRepositoryImpl with ApiService<User> implements AuthRepository {
     String? patronymic,
     required String username,
     required String email,
+    required int role,
   }) {
     apiRoute = ApiConstUrl.registerUrl;
     return postMap(data: {
@@ -50,6 +51,7 @@ class AuthRepositoryImpl with ApiService<User> implements AuthRepository {
       'patronymic': patronymic,
       'username': username,
       'email': email,
+      'role_id': role,
     });
   }
 
