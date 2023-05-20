@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:e_books/data/api_service.dart';
 import 'package:e_books/data/utils/constants.dart';
 import 'package:e_books/domain/repository/book_repository.dart';
@@ -35,6 +38,20 @@ class BookRepositoryImpl with ApiService<Book> implements BookRepository {
     return getAll(
       fromJson: (Map<String, dynamic> json) => Book.fromJson(json),
       params: {'user': AppModule.getProfileHolder().user.id},
+    );
+  }
+
+  @override
+  Future<Book?> addBook({required String title, required int yearOfIssue, required File image, required File book})async  {
+    apiRoute = ApiConstUrl.bookUrl;
+    return post(
+      fromJson: (Map<String, dynamic> json) => Book.fromJson(json),
+      data: {
+        'title' : title,
+        'year_of_issue' : yearOfIssue,
+        'image' :  await MultipartFile.fromFile(image.path),
+        'file' :   await MultipartFile.fromFile(book.path),
+      }
     );
   }
 }

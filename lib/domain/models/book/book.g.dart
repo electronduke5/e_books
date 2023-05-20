@@ -2,17 +2,19 @@
 
 part of '../../../data/models/book.dart';
 
+
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Book _$$_BookFromJson(Map<String, dynamic>   json) => _$_Book(
+_$_Book _$$_BookFromJson(Map<String, dynamic> json) => _$_Book(
       id: json['id'] as int,
       title: json['title'] as String,
       yearOfIssue: json['yearOfIssue'] as String,
       image: json['image'] as String?,
       file: json['file'] as String?,
       rating: (json['rating'] as num?)?.toDouble(),
+      price: (json['price'] as num?)?.toDouble(),
       authors: (json['authors'] as List<dynamic>?)
           ?.map((e) => Author.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -28,6 +30,7 @@ Map<String, dynamic> _$$_BookToJson(_$_Book instance) => <String, dynamic>{
       'image': instance.image,
       'file': instance.file,
       'rating': instance.rating,
+      'price': instance.price,
       'authors': instance.authors,
       'reviews': instance.reviews,
     };

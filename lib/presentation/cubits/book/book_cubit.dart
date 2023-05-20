@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 
 import '../../../data/models/book.dart';
@@ -20,6 +22,23 @@ class BookCubit extends Cubit<BookState> {
       return books;
     } catch (exception) {
       emit(state.copyWith(booksStatus: FailedStatus(state.booksStatus.message)));
+      print(state.booksStatus.message);
+      print(exception.toString());
+      return null;
+    }
+  }
+
+  Future<Book?> addBook({required String title, required int yearOfIssue, required File image, required File file}) async {
+    final repository = AppModule.getBookRepository();
+    emit(state.copyWith(addBookStatus: LoadingStatus()));
+    try {
+      final Book? book = await repository.addBook(title: title, yearOfIssue: yearOfIssue, image: image, book: file);
+      emit(state.copyWith(addBookStatus: LoadedStatus(item: book)));
+      print('books: $book');
+      print('---there2');
+      return book;
+    } catch (exception) {
+      emit(state.copyWith(addBookStatus: FailedStatus(state.booksStatus.message)));
       print(state.booksStatus.message);
       print(exception.toString());
       return null;
@@ -58,5 +77,13 @@ class BookCubit extends Cubit<BookState> {
       print(exception.toString());
       return null;
     }
+  }
+
+  Future<void> imageChanged(File file) async {
+    emit(state.copyWith(image: file));
+  }
+
+  Future<void> fileChanged(File file) async {
+    emit(state.copyWith(book: file));
   }
 }

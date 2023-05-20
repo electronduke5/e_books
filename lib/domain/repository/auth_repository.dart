@@ -13,6 +13,7 @@ abstract class AuthRepository {
     String? patronymic,
     required String username,
     required String email,
+    required int role,
   });
 
   Future<User> signInByToken(String token);

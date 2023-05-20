@@ -32,7 +32,10 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(apiStatus: LoadingStatus()));
     try {
       final response = await repository.sendAuthCode(state.email);
-      emit(state.copyWith(apiStatus: LoadedStatus(data: response),email: state.email, hash: response['code']));
+      emit(state.copyWith(
+          apiStatus: LoadedStatus(data: response),
+          email: state.email,
+          hash: response['code']));
       print(state.hash);
       print(response);
     } catch (exception) {
@@ -59,6 +62,7 @@ class AuthCubit extends Cubit<AuthState> {
       {required String email,
       required String surname,
       required String name,
+      required int role,
       String? patronymic,
       required String username}) async {
     final repository = AppModule.getAuthRepository();
@@ -70,6 +74,7 @@ class AuthCubit extends Cubit<AuthState> {
         username: username,
         name: name,
         patronymic: patronymic,
+        role: role,
       );
       emit(state.copyWith(apiStatus: LoadedStatus(data: response)));
     } catch (exception) {
@@ -86,8 +91,10 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(username: value));
   }
 
-  Future<void> fioChanged({required String surname,required  String name, required String patronymic}) async {
+  Future<void> fioChanged(
+      {required String surname,
+      required String name,
+      required String patronymic}) async {
     emit(state.copyWith(surname: surname, name: name, patronymic: patronymic));
   }
-
 }

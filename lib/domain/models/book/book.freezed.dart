@@ -26,6 +26,7 @@ mixin _$Book {
   String? get image => throw _privateConstructorUsedError;
   String? get file => throw _privateConstructorUsedError;
   double? get rating => throw _privateConstructorUsedError;
+  double? get price => throw _privateConstructorUsedError;
   List<Author>? get authors => throw _privateConstructorUsedError;
   List<Review>? get reviews => throw _privateConstructorUsedError;
 
@@ -46,6 +47,7 @@ abstract class $BookCopyWith<$Res> {
       String? image,
       String? file,
       double? rating,
+      double? price,
       List<Author>? authors,
       List<Review>? reviews});
 }
@@ -69,6 +71,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? image = freezed,
     Object? file = freezed,
     Object? rating = freezed,
+    Object? price = freezed,
     Object? authors = freezed,
     Object? reviews = freezed,
   }) {
@@ -97,6 +100,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
+      price: freezed == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double?,
       authors: freezed == authors
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
@@ -122,6 +129,7 @@ abstract class _$$_BookCopyWith<$Res> implements $BookCopyWith<$Res> {
       String? image,
       String? file,
       double? rating,
+      double? price,
       List<Author>? authors,
       List<Review>? reviews});
 }
@@ -141,6 +149,7 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
     Object? image = freezed,
     Object? file = freezed,
     Object? rating = freezed,
+    Object? price = freezed,
     Object? authors = freezed,
     Object? reviews = freezed,
   }) {
@@ -169,6 +178,10 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
+      price: freezed == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double?,
       authors: freezed == authors
           ? _value._authors
           : authors // ignore: cast_nullable_to_non_nullable
@@ -191,6 +204,7 @@ class _$_Book implements _Book {
       this.image,
       this.file,
       this.rating,
+      this.price,
       final List<Author>? authors,
       final List<Review>? reviews})
       : _authors = authors,
@@ -210,6 +224,8 @@ class _$_Book implements _Book {
   final String? file;
   @override
   final double? rating;
+  @override
+  final double? price;
   final List<Author>? _authors;
   @override
   List<Author>? get authors {
@@ -232,7 +248,7 @@ class _$_Book implements _Book {
 
   @override
   String toString() {
-    return 'Book(id: $id, title: $title, yearOfIssue: $yearOfIssue, image: $image, file: $file, rating: $rating, authors: $authors, reviews: $reviews)';
+    return 'Book(id: $id, title: $title, yearOfIssue: $yearOfIssue, image: $image, file: $file, rating: $rating, price: $price, authors: $authors, reviews: $reviews)';
   }
 
   @override
@@ -247,6 +263,7 @@ class _$_Book implements _Book {
             (identical(other.image, image) || other.image == image) &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.price, price) || other.price == price) &&
             const DeepCollectionEquality().equals(other._authors, _authors) &&
             const DeepCollectionEquality().equals(other._reviews, _reviews));
   }
@@ -261,6 +278,7 @@ class _$_Book implements _Book {
       image,
       file,
       rating,
+      price,
       const DeepCollectionEquality().hash(_authors),
       const DeepCollectionEquality().hash(_reviews));
 
@@ -286,6 +304,7 @@ abstract class _Book implements Book {
       final String? image,
       final String? file,
       final double? rating,
+      final double? price,
       final List<Author>? authors,
       final List<Review>? reviews}) = _$_Book;
 
@@ -303,6 +322,8 @@ abstract class _Book implements Book {
   String? get file;
   @override
   double? get rating;
+  @override
+  double? get price;
   @override
   List<Author>? get authors;
   @override

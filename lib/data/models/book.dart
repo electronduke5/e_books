@@ -15,6 +15,7 @@ class Book with _$Book {
     String? image,
     String? file,
     double? rating,
+    double? price,
     List<Author>? authors,
     List<Review>? reviews,
   }) = _Book;
