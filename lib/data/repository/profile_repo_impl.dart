@@ -11,7 +11,9 @@ class ProfileRepositoryImpl with ApiService<User> implements ProfileRepository {
 
   @override
   Future<User> getProfile({User? user, bool isFromApi = false}) async {
-    User receivedUser = user == null
+    apiRoute = ApiConstUrl.userUrl;
+    User receivedUser =
+    user == null
         ? AppModule.getProfileHolder().user
         : await get(
             fromJson: (Map<String, dynamic> json) => User.fromJson(json), id: user.id);
@@ -31,6 +33,7 @@ class ProfileRepositoryImpl with ApiService<User> implements ProfileRepository {
       String? patronymic,
       String? email,
       String? username}) async {
+    apiRoute = ApiConstUrl.userUrl;
     return put(
       fromJson: (Map<String, dynamic> json) => User.fromJson(json),
       data: {
@@ -41,6 +44,18 @@ class ProfileRepositoryImpl with ApiService<User> implements ProfileRepository {
         'username': username,
       },
       id: AppModule.getProfileHolder().user.id,
+    );
+  }
+
+  @override
+  Future<User> subscribeUser({required int userId, required int authorId}) {
+    apiRoute = ApiConstUrl.subscribeUrl;
+    return post(
+      fromJson: (Map<String, dynamic> json) => User.fromJson(json),
+      data: {
+        'user_id': userId,
+        'author_id': authorId,
+      },
     );
   }
 }

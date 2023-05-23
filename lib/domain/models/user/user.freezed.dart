@@ -21,37 +21,25 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   int get id => throw _privateConstructorUsedError;
-
   String get surname => throw _privateConstructorUsedError;
-
   String get name => throw _privateConstructorUsedError;
-
   String? get patronymic => throw _privateConstructorUsedError;
-
   String get username => throw _privateConstructorUsedError;
-
   String get email => throw _privateConstructorUsedError;
-
   String? get token => throw _privateConstructorUsedError;
-
   double get wallet => throw _privateConstructorUsedError;
-
   Role? get role => throw _privateConstructorUsedError;
-
   List<Book>? get bookmarks => throw _privateConstructorUsedError;
-
   List<User>? get followers => throw _privateConstructorUsedError;
-
   List<User>? get subscriptions => throw _privateConstructorUsedError;
-
   List<Shelf>? get shelves => throw _privateConstructorUsedError;
-
   List<Quote>? get quotes => throw _privateConstructorUsedError;
-
   List<Review>? get reviews => throw _privateConstructorUsedError;
+  List<Book>? get purchasedBooks => throw _privateConstructorUsedError;
+  List<Book>? get createdBooks => throw _privateConstructorUsedError;
+  List<Post>? get posts => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
 }
@@ -60,7 +48,6 @@ mixin _$User {
 abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
-
   @useResult
   $Res call(
       {int id,
@@ -77,7 +64,10 @@ abstract class $UserCopyWith<$Res> {
       List<User>? subscriptions,
       List<Shelf>? shelves,
       List<Quote>? quotes,
-      List<Review>? reviews});
+      List<Review>? reviews,
+      List<Book>? purchasedBooks,
+      List<Book>? createdBooks,
+      List<Post>? posts});
 
   $RoleCopyWith<$Res>? get role;
 }
@@ -89,7 +79,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -111,6 +100,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? shelves = freezed,
     Object? quotes = freezed,
     Object? reviews = freezed,
+    Object? purchasedBooks = freezed,
+    Object? createdBooks = freezed,
+    Object? posts = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -173,6 +165,18 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<Review>?,
+      purchasedBooks: freezed == purchasedBooks
+          ? _value.purchasedBooks
+          : purchasedBooks // ignore: cast_nullable_to_non_nullable
+              as List<Book>?,
+      createdBooks: freezed == createdBooks
+          ? _value.createdBooks
+          : createdBooks // ignore: cast_nullable_to_non_nullable
+              as List<Book>?,
+      posts: freezed == posts
+          ? _value.posts
+          : posts // ignore: cast_nullable_to_non_nullable
+              as List<Post>?,
     ) as $Val);
   }
 
@@ -193,7 +197,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
 abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$$_UserCopyWith(_$_User value, $Res Function(_$_User) then) =
       __$$_UserCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call(
@@ -211,7 +214,10 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       List<User>? subscriptions,
       List<Shelf>? shelves,
       List<Quote>? quotes,
-      List<Review>? reviews});
+      List<Review>? reviews,
+      List<Book>? purchasedBooks,
+      List<Book>? createdBooks,
+      List<Post>? posts});
 
   @override
   $RoleCopyWith<$Res>? get role;
@@ -241,6 +247,9 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? shelves = freezed,
     Object? quotes = freezed,
     Object? reviews = freezed,
+    Object? purchasedBooks = freezed,
+    Object? createdBooks = freezed,
+    Object? posts = freezed,
   }) {
     return _then(_$_User(
       id: null == id
@@ -303,6 +312,18 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<Review>?,
+      purchasedBooks: freezed == purchasedBooks
+          ? _value._purchasedBooks
+          : purchasedBooks // ignore: cast_nullable_to_non_nullable
+              as List<Book>?,
+      createdBooks: freezed == createdBooks
+          ? _value._createdBooks
+          : createdBooks // ignore: cast_nullable_to_non_nullable
+              as List<Book>?,
+      posts: freezed == posts
+          ? _value._posts
+          : posts // ignore: cast_nullable_to_non_nullable
+              as List<Post>?,
     ));
   }
 }
@@ -325,13 +346,19 @@ class _$_User implements _User {
       required final List<User>? subscriptions,
       required final List<Shelf>? shelves,
       required final List<Quote>? quotes,
-      required final List<Review>? reviews})
+      required final List<Review>? reviews,
+      required final List<Book>? purchasedBooks,
+      required final List<Book>? createdBooks,
+      required final List<Post>? posts})
       : _bookmarks = bookmarks,
         _followers = followers,
         _subscriptions = subscriptions,
         _shelves = shelves,
         _quotes = quotes,
-        _reviews = reviews;
+        _reviews = reviews,
+        _purchasedBooks = purchasedBooks,
+        _createdBooks = createdBooks,
+        _posts = posts;
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -354,7 +381,6 @@ class _$_User implements _User {
   @override
   final Role? role;
   final List<Book>? _bookmarks;
-
   @override
   List<Book>? get bookmarks {
     final value = _bookmarks;
@@ -365,7 +391,6 @@ class _$_User implements _User {
   }
 
   final List<User>? _followers;
-
   @override
   List<User>? get followers {
     final value = _followers;
@@ -376,7 +401,6 @@ class _$_User implements _User {
   }
 
   final List<User>? _subscriptions;
-
   @override
   List<User>? get subscriptions {
     final value = _subscriptions;
@@ -387,7 +411,6 @@ class _$_User implements _User {
   }
 
   final List<Shelf>? _shelves;
-
   @override
   List<Shelf>? get shelves {
     final value = _shelves;
@@ -398,7 +421,6 @@ class _$_User implements _User {
   }
 
   final List<Quote>? _quotes;
-
   @override
   List<Quote>? get quotes {
     final value = _quotes;
@@ -409,7 +431,6 @@ class _$_User implements _User {
   }
 
   final List<Review>? _reviews;
-
   @override
   List<Review>? get reviews {
     final value = _reviews;
@@ -419,9 +440,39 @@ class _$_User implements _User {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Book>? _purchasedBooks;
+  @override
+  List<Book>? get purchasedBooks {
+    final value = _purchasedBooks;
+    if (value == null) return null;
+    if (_purchasedBooks is EqualUnmodifiableListView) return _purchasedBooks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Book>? _createdBooks;
+  @override
+  List<Book>? get createdBooks {
+    final value = _createdBooks;
+    if (value == null) return null;
+    if (_createdBooks is EqualUnmodifiableListView) return _createdBooks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Post>? _posts;
+  @override
+  List<Post>? get posts {
+    final value = _posts;
+    if (value == null) return null;
+    if (_posts is EqualUnmodifiableListView) return _posts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'User(id: $id, surname: $surname, name: $name, patronymic: $patronymic, username: $username, email: $email, token: $token, wallet: $wallet, role: $role, bookmarks: $bookmarks, followers: $followers, subscriptions: $subscriptions, shelves: $shelves, quotes: $quotes, reviews: $reviews)';
+    return 'User(id: $id, surname: $surname, name: $name, patronymic: $patronymic, username: $username, email: $email, token: $token, wallet: $wallet, role: $role, bookmarks: $bookmarks, followers: $followers, subscriptions: $subscriptions, shelves: $shelves, quotes: $quotes, reviews: $reviews, purchasedBooks: $purchasedBooks, createdBooks: $createdBooks, posts: $posts)';
   }
 
   @override
@@ -448,7 +499,12 @@ class _$_User implements _User {
                 .equals(other._subscriptions, _subscriptions) &&
             const DeepCollectionEquality().equals(other._shelves, _shelves) &&
             const DeepCollectionEquality().equals(other._quotes, _quotes) &&
-            const DeepCollectionEquality().equals(other._reviews, _reviews));
+            const DeepCollectionEquality().equals(other._reviews, _reviews) &&
+            const DeepCollectionEquality()
+                .equals(other._purchasedBooks, _purchasedBooks) &&
+            const DeepCollectionEquality()
+                .equals(other._createdBooks, _createdBooks) &&
+            const DeepCollectionEquality().equals(other._posts, _posts));
   }
 
   @JsonKey(ignore: true)
@@ -469,7 +525,10 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(_subscriptions),
       const DeepCollectionEquality().hash(_shelves),
       const DeepCollectionEquality().hash(_quotes),
-      const DeepCollectionEquality().hash(_reviews));
+      const DeepCollectionEquality().hash(_reviews),
+      const DeepCollectionEquality().hash(_purchasedBooks),
+      const DeepCollectionEquality().hash(_createdBooks),
+      const DeepCollectionEquality().hash(_posts));
 
   @JsonKey(ignore: true)
   @override
@@ -511,55 +570,49 @@ abstract class _User implements User {
       required final List<User>? subscriptions,
       required final List<Shelf>? shelves,
       required final List<Quote>? quotes,
-      required final List<Review>? reviews}) = _$_User;
+      required final List<Review>? reviews,
+      required final List<Book>? purchasedBooks,
+      required final List<Book>? createdBooks,
+      required final List<Post>? posts}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
   int get id;
-
   @override
   String get surname;
-
   @override
   String get name;
-
   @override
   String? get patronymic;
-
   @override
   String get username;
-
   @override
   String get email;
-
   @override
   String? get token;
-
   @override
   double get wallet;
-
   @override
   Role? get role;
-
   @override
   List<Book>? get bookmarks;
-
   @override
   List<User>? get followers;
-
   @override
   List<User>? get subscriptions;
-
   @override
   List<Shelf>? get shelves;
-
   @override
   List<Quote>? get quotes;
-
   @override
   List<Review>? get reviews;
-
+  @override
+  List<Book>? get purchasedBooks;
+  @override
+  List<Book>? get createdBooks;
+  @override
+  List<Post>? get posts;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 
 import '../../../data/models/book.dart';
+import '../../../data/models/user.dart';
 import '../../di/app_module.dart';
 import '../models_status.dart';
 
@@ -11,11 +12,11 @@ part 'book_state.dart';
 class BookCubit extends Cubit<BookState> {
   BookCubit() : super(BookState());
 
-  Future<List<Book>?> loadBooks() async {
+  Future<List<Book>?> loadBooks({User? user}) async {
     final repository = AppModule.getBookRepository();
     emit(state.copyWith(booksStatus: LoadingStatus()));
     try {
-      final List<Book> books = await repository.getAllBooks();
+      final List<Book> books = await repository.getAllBooks(user: user);
       emit(state.copyWith(booksStatus: LoadedStatus(item: books)));
       print('books: $books');
       print('---there2');
@@ -28,12 +29,24 @@ class BookCubit extends Cubit<BookState> {
     }
   }
 
-  Future<Book?> addBook({required String title, required int yearOfIssue, required File image, required File file}) async {
+  Future<Book?> addBook(
+      {required String title,
+      required int yearOfIssue,
+      required File image,
+      required File file,
+      User? user}) async {
     final repository = AppModule.getBookRepository();
     emit(state.copyWith(addBookStatus: LoadingStatus()));
     try {
-      final Book? book = await repository.addBook(title: title, yearOfIssue: yearOfIssue, image: image, book: file);
+      int? roleId = user?.role?.id;
+      final Book? book = await repository.addBook(
+          title: title,
+          yearOfIssue: yearOfIssue,
+          image: image,
+          book: file,
+          user_id: roleId == 2 ? roleId : null);
       emit(state.copyWith(addBookStatus: LoadedStatus(item: book)));
+      emit(state.copyWith(addBookStatus: const IdleStatus()));
       print('books: $book');
       print('---there2');
       return book;
@@ -41,6 +54,7 @@ class BookCubit extends Cubit<BookState> {
       emit(state.copyWith(addBookStatus: FailedStatus(state.booksStatus.message)));
       print(state.booksStatus.message);
       print(exception.toString());
+      emit(state.copyWith(addBookStatus: const IdleStatus()));
       return null;
     }
   }
@@ -69,7 +83,6 @@ class BookCubit extends Cubit<BookState> {
       final Book? book = await repository.addBookmark(bookId: bookId);
       emit(state.copyWith(bookmarkStatus: LoadedStatus(item: book)));
       print('book: $book');
-      print('---there2');
       return book == null ? false : true;
     } catch (exception) {
       emit(state.copyWith(bookmarkStatus: FailedStatus(state.booksStatus.message)));
@@ -79,11 +92,37 @@ class BookCubit extends Cubit<BookState> {
     }
   }
 
+  Future<Book?> buyBook(int bookId, int userId) async {
+    final repository = AppModule.getBookRepository();
+    emit(state.copyWith(buyBookStatus: LoadingStatus()));
+    try {
+      final Book? book = await repository.buyBook(bookId: bookId, userId: userId);
+      emit(state.copyWith(buyBookStatus: LoadedStatus(item: book)));
+      print('book: $book');
+      return book;
+    } catch (exception) {
+      emit(state.copyWith(
+          buyBookStatus:
+              FailedStatus(state.booksStatus.message ?? exception.toString())));
+      print(state.booksStatus.message);
+      print(exception.toString());
+      return null;
+    }
+  }
+
   Future<void> imageChanged(File file) async {
-    emit(state.copyWith(image: file));
+    emit(state.copyWith(image: file, book: state.book));
+  }
+
+  Future<void> removeImage() async {
+    emit(state.copyWith(image: null, book: state.book));
+  }
+
+  Future<void> removeBook() async {
+    emit(state.copyWith(book: null, image: state.image));
   }
 
   Future<void> fileChanged(File file) async {
-    emit(state.copyWith(book: file));
+    emit(state.copyWith(book: file, image: state.image));
   }
 }

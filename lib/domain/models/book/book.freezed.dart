@@ -29,6 +29,7 @@ mixin _$Book {
   double? get price => throw _privateConstructorUsedError;
   List<Author>? get authors => throw _privateConstructorUsedError;
   List<Review>? get reviews => throw _privateConstructorUsedError;
+  User? get creator => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +50,10 @@ abstract class $BookCopyWith<$Res> {
       double? rating,
       double? price,
       List<Author>? authors,
-      List<Review>? reviews});
+      List<Review>? reviews,
+      User? creator});
+
+  $UserCopyWith<$Res>? get creator;
 }
 
 /// @nodoc
@@ -74,6 +78,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? price = freezed,
     Object? authors = freezed,
     Object? reviews = freezed,
+    Object? creator = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -112,7 +117,23 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<Review>?,
+      creator: freezed == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as User?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get creator {
+    if (_value.creator == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.creator!, (value) {
+      return _then(_value.copyWith(creator: value) as $Val);
+    });
   }
 }
 
@@ -131,7 +152,11 @@ abstract class _$$_BookCopyWith<$Res> implements $BookCopyWith<$Res> {
       double? rating,
       double? price,
       List<Author>? authors,
-      List<Review>? reviews});
+      List<Review>? reviews,
+      User? creator});
+
+  @override
+  $UserCopyWith<$Res>? get creator;
 }
 
 /// @nodoc
@@ -152,6 +177,7 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
     Object? price = freezed,
     Object? authors = freezed,
     Object? reviews = freezed,
+    Object? creator = freezed,
   }) {
     return _then(_$_Book(
       id: null == id
@@ -190,6 +216,10 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<Review>?,
+      creator: freezed == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as User?,
     ));
   }
 }
@@ -206,7 +236,8 @@ class _$_Book implements _Book {
       this.rating,
       this.price,
       final List<Author>? authors,
-      final List<Review>? reviews})
+      final List<Review>? reviews,
+      this.creator})
       : _authors = authors,
         _reviews = reviews;
 
@@ -247,8 +278,11 @@ class _$_Book implements _Book {
   }
 
   @override
+  final User? creator;
+
+  @override
   String toString() {
-    return 'Book(id: $id, title: $title, yearOfIssue: $yearOfIssue, image: $image, file: $file, rating: $rating, price: $price, authors: $authors, reviews: $reviews)';
+    return 'Book(id: $id, title: $title, yearOfIssue: $yearOfIssue, image: $image, file: $file, rating: $rating, price: $price, authors: $authors, reviews: $reviews, creator: $creator)';
   }
 
   @override
@@ -265,7 +299,8 @@ class _$_Book implements _Book {
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.price, price) || other.price == price) &&
             const DeepCollectionEquality().equals(other._authors, _authors) &&
-            const DeepCollectionEquality().equals(other._reviews, _reviews));
+            const DeepCollectionEquality().equals(other._reviews, _reviews) &&
+            (identical(other.creator, creator) || other.creator == creator));
   }
 
   @JsonKey(ignore: true)
@@ -280,7 +315,8 @@ class _$_Book implements _Book {
       rating,
       price,
       const DeepCollectionEquality().hash(_authors),
-      const DeepCollectionEquality().hash(_reviews));
+      const DeepCollectionEquality().hash(_reviews),
+      creator);
 
   @JsonKey(ignore: true)
   @override
@@ -306,7 +342,8 @@ abstract class _Book implements Book {
       final double? rating,
       final double? price,
       final List<Author>? authors,
-      final List<Review>? reviews}) = _$_Book;
+      final List<Review>? reviews,
+      final User? creator}) = _$_Book;
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$_Book.fromJson;
 
@@ -328,6 +365,8 @@ abstract class _Book implements Book {
   List<Author>? get authors;
   @override
   List<Review>? get reviews;
+  @override
+  User? get creator;
   @override
   @JsonKey(ignore: true)
   _$$_BookCopyWith<_$_Book> get copyWith => throw _privateConstructorUsedError;

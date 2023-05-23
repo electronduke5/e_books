@@ -50,8 +50,13 @@ class BookWidget extends StatelessWidget {
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                             () {
-                          if (book.authors == []) {
-                            return Text('Авторов нет');
+                          if (book.authors?.isEmpty ?? true) {
+                            if (book.creator == null) {
+                              return const Text('Авторов нет');
+                            } else {
+                              return Text(
+                                  '${book.creator!.surname} ${book.creator!.name}');
+                            }
                           }
                           for (Author author in book.authors!) {
                             return Text(author.getInitials(),
@@ -65,21 +70,6 @@ class BookWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                // () {
-                //   if (book.rating != 0.0) {
-                //     return RatingBarIndicator(
-                //       itemBuilder: (context, index) {
-                //         return Icon(Icons.star,
-                //             color: Theme.of(context).colorScheme.secondary);
-                //       },
-                //       itemSize: MediaQuery.of(context).size.width / 11,
-                //       itemCount: 10,
-                //       rating: book.rating ?? 0.0,
-                //     );
-                //   }
-                //   return const SizedBox();
-                // }(),
-
                 const SizedBox(height: 10),
                 Row(
                   children: [

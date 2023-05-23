@@ -1,6 +1,6 @@
-import 'package:e_books/presentation/pages/start_page.dart';
 import 'package:flutter/material.dart';
 
+import 'all_posts_page.dart';
 import 'books_page.dart';
 import 'profile_page.dart';
 
@@ -12,10 +12,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    StartPage(),
+    AllPostsPage(),
     BooksPage(),
     ProfilePage(),
   ];
@@ -52,8 +52,8 @@ class _MainPageState extends State<MainPage> {
       elevation: 0,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.add),
-          label: 'Добавить книгу',
+          icon: Icon(Icons.home_outlined),
+          label: 'Лента',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.book_outlined),

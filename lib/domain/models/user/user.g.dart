@@ -36,6 +36,15 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       reviews: (json['reviews'] as List<dynamic>?)
           ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
           .toList(),
+      purchasedBooks: (json['purchasedBooks'] as List<dynamic>?)
+          ?.map((e) => Book.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      createdBooks: (json['createdBooks'] as List<dynamic>?)
+          ?.map((e) => Book.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      posts: (json['posts'] as List<dynamic>?)
+          ?.map((e) => Post.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -54,4 +63,7 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'shelves': instance.shelves,
       'quotes': instance.quotes,
       'reviews': instance.reviews,
+      'purchasedBooks': instance.purchasedBooks,
+      'createdBooks': instance.createdBooks,
+      'posts': instance.posts,
     };

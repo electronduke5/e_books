@@ -20,7 +20,10 @@ class ImageHelper {
 
   Future<File?> getFile() async {
     try {
-      final FilePickerResult? result = await FilePicker.platform.pickFiles();
+      final FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['epub'],
+      );
       if(result == null) return null;
       return File(result.files.single.path!);
     } on PlatformException catch (e) {

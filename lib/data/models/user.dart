@@ -1,3 +1,4 @@
+import 'package:e_books/data/models/post.dart';
 import 'package:e_books/data/models/role.dart';
 import 'package:e_books/data/models/shelf.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -27,6 +28,10 @@ class User with _$User {
     required List<Shelf>? shelves,
     required List<Quote>? quotes,
     required List<Review>? reviews,
+    required List<Book>? purchasedBooks,
+    required List<Book>? createdBooks,
+    required List<Post>? posts,
+
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

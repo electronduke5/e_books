@@ -1,5 +1,6 @@
 import 'package:e_books/data/models/book.dart';
 
+import '../../data/models/post.dart';
 import '../../data/models/quote.dart';
 import '../../data/models/review.dart';
 import '../../data/models/role.dart';
@@ -23,5 +24,8 @@ class ProfileHolder {
     role: Role(id: 1, roleName: 'Читатель'),
     followers: <User>[],
     subscriptions: <User>[],
+    createdBooks: <Book>[],
+    purchasedBooks: <Book>[],
+    posts: <Post>[],
   );
 }
