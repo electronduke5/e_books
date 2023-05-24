@@ -70,9 +70,18 @@ class BookRepositoryImpl with ApiService<Book> implements BookRepository {
     return post(
       fromJson: (Map<String, dynamic> json) => Book.fromJson(json),
       data: {
-        'user_id' : userId,
-        'book_id' : bookId,
+        'user_id': userId,
+        'book_id': bookId,
       },
+    );
+  }
+
+  @override
+  Future<Book> getBook({required int bookId}) {
+    apiRoute = ApiConstUrl.bookUrl;
+    return get(
+      fromJson: (Map<String, dynamic> json) => Book.fromJson(json),
+      id: bookId,
     );
   }
 }

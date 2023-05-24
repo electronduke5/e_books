@@ -8,6 +8,7 @@ import '../cubits/theme/theme_cubit.dart';
 import '../di/app_module.dart';
 import '../widgets/popup_icon_item.dart';
 import '../widgets/profile_stats_grid.dart';
+import '../widgets/snack_bar.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -17,6 +18,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController nameController =
+      TextEditingController(text: AppModule.getProfileHolder().user.name);
+  TextEditingController surnameController =
+      TextEditingController(text: AppModule.getProfileHolder().user.surname);
+  TextEditingController patronymicController =
+      TextEditingController(text: AppModule.getProfileHolder().user.patronymic);
   bool isMyProfile = true;
 
   User? user;
@@ -27,10 +35,12 @@ class _ProfilePageState extends State<ProfilePage> {
         AppModule.getProfileHolder().user;
     setState(() {
       if ((ModalRoute.of(context)?.settings.arguments as User?) != null) {
-        context.read<ProfileCubit>().loadProfile(user: user, isFromApi: true);
         if (user?.id != AppModule.getProfileHolder().user.id) {
           isMyProfile = false;
         }
+        context
+            .read<ProfileCubit>()
+            .loadProfile(user: user, isFromApi: true, updateHolder: isMyProfile);
       }
     });
     return RefreshIndicator(
@@ -57,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         SizedBox(
                           width: double.infinity,
-                          height: isMyProfile ? 210 : 250,
+                          height: isMyProfile ? 170 : 220,
                           child: Card(
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
@@ -74,20 +84,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                     children: [
                                       CircleAvatar(
                                         minRadius: 2,
-                                        maxRadius: 45,
+                                        maxRadius: 30,
                                         child: Text(
                                           state.status.item!.getInitials(),
                                           style: const TextStyle(
                                               fontWeight: FontWeight.normal,
-                                              fontSize: 30),
+                                              fontSize: 22),
                                         ),
                                       ),
                                       const SizedBox(width: 10),
-                                      Text(
-                                        '${state.status.item!.surname}\n${state.status.item!.name}',
-                                        style: Theme.of(context).textTheme.headlineSmall,
+                                      Expanded(
+                                        child: Text(
+                                          '${state.status.item!.surname}\n${state.status.item!.name}',
+                                          style: const TextStyle(fontSize: 18),
+                                        ),
                                       ),
-                                      const Spacer(),
+                                      //const Spacer(),
                                       () {
                                         if (isMyProfile) {
                                           return popupProfileMenu(context);
@@ -109,37 +121,50 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const SizedBox(height: 5),
                                   Text(
                                     'Никнейм: ${state.status.item!.username}',
-                                    style: Theme.of(context).textTheme.titleLarge,
+                                    style: const TextStyle(fontSize: 18),
                                   ),
                                   Text(
                                     'Эл. почта: ${state.status.item!.email}',
                                     style: const TextStyle(fontSize: 16),
                                   ),
-                                  () {
+                                      () {
                                     if (!isMyProfile) {
                                       //return BlocBuilder<ProfileCubit, ProfileState>(
-                                        //builder: (context, state) {
-                                          return ElevatedButton(
-                                            onPressed: () async {
-                                              await context
-                                                  .read<ProfileCubit>()
-                                                  .subscribe(state.status.item!).then((value) => AppModule.getProfileHolder().user = value?? AppModule.getProfileHolder().user);
-                                            },
-                                            child: (){
-                                              print('AppModule.getProfileHolder().user.subscriptions!.contains(user): ${AppModule.getProfileHolder().user.subscriptions!.contains(user)}');
-                                              print('${AppModule.getProfileHolder().user.subscriptions}');
-                                              print('$user');
-                                              if(AppModule.getProfileHolder().user.subscriptions!.contains(user)){
-                                                return const Text('Отписаться');
-                                              }
-                                              if(state.subscribeStatus is LoadedStatus){
-                                                return state.subscribeStatus.item!.subscriptions!.contains(user)?  const Text('Отписаться') :  const Text('Подписаться');
-                                              }
-                                              return const Text('Подписаться');
-
-                                            }(),
-                                          );
-                                        //}
+                                      //builder: (context, state) {
+                                      return ElevatedButton(
+                                        onPressed: () async {
+                                          await context
+                                              .read<ProfileCubit>()
+                                              .subscribe(state.status.item!)
+                                              .then((value) =>
+                                                  AppModule.getProfileHolder().user =
+                                                      value ??
+                                                          AppModule.getProfileHolder()
+                                                              .user);
+                                        },
+                                        child: () {
+                                          print(
+                                              'AppModule.getProfileHolder().user.subscriptions!.contains(user): ${AppModule.getProfileHolder().user.subscriptions!.contains(user)}');
+                                          print(
+                                              '${AppModule.getProfileHolder().user.subscriptions}');
+                                          print('$user');
+                                          if (AppModule.getProfileHolder()
+                                              .user
+                                              .subscriptions!
+                                              .contains(user)) {
+                                            return const Text('Отписаться');
+                                          }
+                                          if (state.subscribeStatus is LoadedStatus) {
+                                            return state
+                                                    .subscribeStatus.item!.subscriptions!
+                                                    .contains(user)
+                                                ? const Text('Отписаться')
+                                                : const Text('Подписаться');
+                                          }
+                                          return const Text('Подписаться');
+                                        }(),
+                                      );
+                                      //}
                                       //);
                                     } else {
                                       return const SizedBox();
@@ -192,7 +217,7 @@ class _ProfilePageState extends State<ProfilePage> {
       onSelected: (value) {
         switch (value) {
           case 'Редатировать профиль':
-            //buildEditProfileWidget(context);
+            buildEditProfileWidget(context);
             break;
           case 'Выйти':
             AppModule.getPreferencesRepository().removeSavedProfile();
@@ -203,6 +228,110 @@ class _ProfilePageState extends State<ProfilePage> {
             break;
         }
       },
+    );
+  }
+
+  PersistentBottomSheetController<dynamic> buildEditProfileWidget(BuildContext context) {
+    return showBottomSheet(
+      context: context,
+      builder: (context) => SafeArea(
+        child: BlocBuilder<ProfileCubit, ProfileState>(
+          builder: (context, state) => Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Редактирование профиля',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  const Divider(),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: TextFormField(
+                      controller: nameController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Введите имя';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Имя',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: TextFormField(
+                      controller: surnameController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Введите фамилию';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Фамилия',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: TextFormField(
+                      controller: patronymicController,
+                      decoration: InputDecoration(
+                        labelText: 'Отчество',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        final surname = surnameController.value.text;
+                        final name = nameController.value.text;
+                        final patronymic = patronymicController.value.text;
+                        surnameController.clear();
+                        nameController.clear();
+                        patronymicController.clear();
+
+                        await context
+                            .read<ProfileCubit>()
+                            .updateProfile(
+                                surname: surname, name: name, patronymic: patronymic)
+                            .then((value) {
+                          SnackBarInfo.show(
+                              context: context,
+                              message: 'Данные обновлены',
+                              isSuccess: true);
+                          Navigator.of(context).pop();
+                        });
+                      }
+                    },
+                    child: const Text('Сохранить'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

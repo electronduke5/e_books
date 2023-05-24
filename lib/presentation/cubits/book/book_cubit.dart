@@ -29,6 +29,21 @@ class BookCubit extends Cubit<BookState> {
     }
   }
 
+  Future<Book?> loadBook({required Book book}) async {
+    final repository = AppModule.getBookRepository();
+    emit(state.copyWith(loadBookStatus: LoadingStatus()));
+    try {
+      final Book foundBook = await repository.getBook(bookId: book.id);
+      emit(state.copyWith(loadBookStatus: LoadedStatus<Book>(item: foundBook)));
+      return foundBook;
+    } catch (exception) {
+      emit(state.copyWith(loadBookStatus: FailedStatus(state.booksStatus.message)));
+      print(state.booksStatus.message);
+      print(exception.toString());
+      return null;
+    }
+  }
+
   Future<Book?> addBook(
       {required String title,
       required int yearOfIssue,
@@ -98,12 +113,14 @@ class BookCubit extends Cubit<BookState> {
     try {
       final Book? book = await repository.buyBook(bookId: bookId, userId: userId);
       emit(state.copyWith(buyBookStatus: LoadedStatus(item: book)));
+      emit(state.copyWith(buyBookStatus: const IdleStatus()));
       print('book: $book');
       return book;
     } catch (exception) {
       emit(state.copyWith(
           buyBookStatus:
               FailedStatus(state.booksStatus.message ?? exception.toString())));
+      emit(state.copyWith(buyBookStatus: const IdleStatus()));
       print(state.booksStatus.message);
       print(exception.toString());
       return null;

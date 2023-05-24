@@ -44,7 +44,7 @@ class ReviewCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        review.author.getFullName(),
+                        '${review.author.surname} ${review.author.name}',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(review.getDate(),

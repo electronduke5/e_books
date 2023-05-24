@@ -17,6 +17,7 @@ import 'package:e_books/presentation/pages/loading_page.dart';
 import 'package:e_books/presentation/pages/posts_page.dart';
 import 'package:e_books/presentation/pages/profile_books_page.dart';
 import 'package:e_books/presentation/pages/profile_page.dart';
+import 'package:e_books/presentation/pages/profile_purchased_books.dart';
 import 'package:e_books/presentation/pages/read_book_page.dart';
 import 'package:e_books/presentation/pages/shelves_page.dart';
 import 'package:e_books/presentation/pages/user_reviews_page.dart';
@@ -136,6 +137,7 @@ class _EBooksAppState extends State<EBooksApp> {
                     ),
                 '/book-info': (context) => MultiBlocProvider(
                       providers: [
+                        BlocProvider<ProfileCubit>(create: (context) => ProfileCubit()),
                         BlocProvider<BookCubit>(create: (context) => BookCubit()),
                         BlocProvider<ShelfCubit>(create: (context) => ShelfCubit()),
                         BlocProvider<ReviewCubit>(create: (context) => ReviewCubit()),
@@ -188,6 +190,7 @@ class _EBooksAppState extends State<EBooksApp> {
                       ),
                     ),
                 '/profile-followers': (context) => FollowersPage(),
+                '/profile-purchased-books': (context) => PurchasedBooksPage(),
                 '/profile-books': (context) => MultiBlocProvider(
                       providers: [
                         BlocProvider<BookCubit>(create: (context) => BookCubit()),

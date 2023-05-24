@@ -9,6 +9,7 @@ abstract class BookRepository {
   Future<List<Book>> getUserBookmarks();
 
   Future<Book?> addBookmark({required int bookId});
+  Future<Book> getBook({required int bookId});
 
   Future<Book?> buyBook({required int bookId, required int userId});
 

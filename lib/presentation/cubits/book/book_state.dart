@@ -5,12 +5,14 @@ class BookState {
   final ApiStatus<Book> bookmarkStatus;
   final ApiStatus<Book> addBookStatus;
   final ApiStatus<Book> buyBookStatus;
+  final ApiStatus<Book> loadBookStatus;
   final File? image;
   final File? book;
 
   BookState({
     this.booksStatus = const IdleStatus(),
     this.buyBookStatus = const IdleStatus(),
+    this.loadBookStatus = const IdleStatus(),
     this.addBookStatus = const IdleStatus(),
     this.bookmarkStatus = const IdleStatus(),
     this.book,
@@ -22,6 +24,7 @@ class BookState {
     ApiStatus<Book>? bookmarkStatus,
     ApiStatus<Book>? addBookStatus,
     ApiStatus<Book>? buyBookStatus,
+    ApiStatus<Book>? loadBookStatus,
     File? image ,
     File? book ,
   }) =>
@@ -30,6 +33,7 @@ class BookState {
         bookmarkStatus: bookmarkStatus ?? this.bookmarkStatus,
         addBookStatus: addBookStatus ?? this.addBookStatus,
         buyBookStatus: buyBookStatus ?? this.buyBookStatus,
+        loadBookStatus: loadBookStatus ?? this.loadBookStatus,
         image: image ?? this.image,
         book: book ?? this.book,
       );

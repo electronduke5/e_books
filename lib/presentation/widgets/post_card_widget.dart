@@ -45,7 +45,7 @@ class PostCard extends StatelessWidget {
                     children: [
                       Text(
                         '${post.user!.surname} ${post.user!.name}',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(overflow: TextOverflow.ellipsis),
                       ),
                       Text(
                         DateTimeHelper.getDateWithTime(post.dateCreated!),

@@ -20,6 +20,24 @@ class ProfileStatsGrid extends StatelessWidget {
       mainAxisSpacing: 5,
       crossAxisSpacing: 5,
       children: [
+        () {
+          if (user.id == AppModule.getProfileHolder().user.id) {
+            return profileStatTile(
+              onTap: () {
+                if (user.purchasedBooks?.isNotEmpty ?? false) {
+                  Navigator.of(context).pushNamed('/profile-purchased-books',
+                      arguments: user.purchasedBooks);
+                }
+              },
+              title: 'Купленные книги',
+              value: user.purchasedBooks?.length,
+              crossAxisCellCount: 2,
+              mainAxisCellCount: 1,
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        }(),
         profileStatTile(
           onTap: () {
             if (user.bookmarks?.isNotEmpty ?? false) {
@@ -28,7 +46,7 @@ class ProfileStatsGrid extends StatelessWidget {
           },
           title: 'Закладки',
           value: user.bookmarks?.length,
-          crossAxisCellCount: 2,
+          crossAxisCellCount: 1,
           mainAxisCellCount: 1,
         ),
         profileStatTile(
@@ -54,31 +72,43 @@ class ProfileStatsGrid extends StatelessWidget {
               mainAxisCellCount: 1,
             );
           } else {
-            return const SizedBox();
+            return const SizedBox.shrink();
           }
         }(),
-        profileStatTile(
-          onTap: () {
-            if (user.posts?.isNotEmpty ?? false) {
-              Navigator.of(context).pushNamed('/profile-posts', arguments: user);
-            }
-          },
-          title: 'Посты',
-          value: user.posts?.length,
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-        ),
-        profileStatTile(
-          onTap: () {
-            if (user.createdBooks?.isNotEmpty ?? false) {
-              Navigator.of(context).pushNamed('/profile-books', arguments: user);
-            }
-          },
-          title: 'Книги',
-          value: user.createdBooks?.length,
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-        ),
+        () {
+          if (user.role?.id == 2) {
+            return profileStatTile(
+              onTap: () {
+                if (user.posts?.isNotEmpty ?? false) {
+                  Navigator.of(context).pushNamed('/profile-posts', arguments: user);
+                }
+              },
+              title: 'Посты',
+              value: user.posts?.length,
+              crossAxisCellCount: 1,
+              mainAxisCellCount: 1,
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        }(),
+        () {
+          if (user.role?.id == 2) {
+            return profileStatTile(
+              onTap: () {
+                if (user.createdBooks?.isNotEmpty ?? false) {
+                  Navigator.of(context).pushNamed('/profile-books', arguments: user);
+                }
+              },
+              title: 'Книги',
+              value: user.createdBooks?.length,
+              crossAxisCellCount: 1,
+              mainAxisCellCount: 1,
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        }(),
         profileStatTile(
           onTap: () {
             if (user.followers?.isNotEmpty ?? false) {
@@ -93,7 +123,7 @@ class ProfileStatsGrid extends StatelessWidget {
           },
           title: 'Подписчики',
           value: user.followers?.length,
-          crossAxisCellCount: 2,
+          crossAxisCellCount: 1,
           mainAxisCellCount: 1,
         ),
         profileStatTile(

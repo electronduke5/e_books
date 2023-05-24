@@ -216,7 +216,7 @@ mixin ApiService<T extends Object> {
       final json = response.data;
       print(json);
 
-      return fromJson(json);
+      return fromJson(json['data']);
     } catch (error) {
       print(error.toString());
       throw Exception(error);
